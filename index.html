@@ -205,18 +205,24 @@
   .scholar-fetch-note a { color: var(--accent); text-decoration: none; } }
 
   /* ─── Publications panel ─────────────────────────────────── */
-  .pub-filters { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .pub-filters { display: flex; gap: 10px; margin-bottom: 0.6rem; flex-wrap: wrap; }
   .pub-year-filters-row .filter-btn {
-    font-size: 11px; padding: 3px 10px;
-    background: var(--surface-2); color: var(--text-ter);
-    border-color: var(--border);
+    font-size: 11.5px; padding: 4px 11px; border-radius: 4px;
+    background: transparent; color: var(--text-ter);
+    border-color: transparent;
+  }
+  .pub-year-filters-row .filter-btn:hover {
+    background: var(--surface); border-color: var(--border); color: var(--text-sec);
+  }
+  .pub-year-filters-row .filter-btn.active {
+    background: var(--navy); border-color: var(--navy); color: #fff;
   }
   .pub-year-filters-row .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
   .pub-year-filters-row .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
   .filter-btn {
-    font-size: 11.5px; font-weight: 500; padding: 5px 12px; border-radius: 4px;
+    font-size: 13px; font-weight: 500; padding: 7px 16px; border-radius: 6px;
     border: 0.5px solid var(--border); background: var(--surface); color: var(--text-sec);
-    cursor: pointer; transition: all var(--transition); font-family: 'DM Sans', sans-serif; letter-spacing: 0.03em;
+    cursor: pointer; transition: all var(--transition); font-family: 'DM Sans', sans-serif; letter-spacing: 0.02em;
   }
   .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
   .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
@@ -490,7 +496,7 @@
         <button class="filter-btn" onclick="filterPubs('Book', this)">Books &amp; Edited Volumes</button>
         <button class="filter-btn" onclick="filterPubs('Book Chapter', this)">Book Chapters</button>
       </div>
-      <div class="pub-filters pub-year-filters-row" id="pub-year-filters" style="margin-top:-0.5rem;"></div>
+      <div class="pub-filters pub-year-filters-row" id="pub-year-filters" style="margin-top:0; padding-top:0.75rem; border-top: 0.5px solid var(--border); margin-bottom:1.5rem;"></div>
       <div class="section-head">Publications</div>
       <div class="pub-list" id="pub-list"></div>
     </section>
