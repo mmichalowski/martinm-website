@@ -57,19 +57,21 @@
 
   /* ─── Sidebar: Profile ───────────────────────────────────── */
   .profile-photo {
-    width: 76px; height: 76px; border-radius: 50%;
+    width: 120px; height: 120px; border-radius: 50%;
     background: var(--navy-soft);
     border: 2px solid var(--border-on-navy);
     display: flex; align-items: center; justify-content: center;
-    font-size: 26px; font-weight: 300; color: var(--muted-on-navy);
-    margin-bottom: 1rem; overflow: hidden; flex-shrink: 0;
+    font-size: 36px; font-weight: 300; color: var(--muted-on-navy);
+    margin: 0 auto 1.25rem; overflow: hidden; flex-shrink: 0;
+    align-self: center;
   }
   .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .sidebar-name { font-size: 18px; font-weight: 600; color: var(--text-on-navy); line-height: 1.3; margin-bottom: 10px; }
+  .sidebar-name { font-size: 18px; font-weight: 600; color: var(--text-on-navy); line-height: 1.3; margin-bottom: 10px; text-align: center; }
   .sidebar-role {
     font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.52);
     line-height: 1.7; margin-bottom: 1.75rem;
     display: flex; flex-wrap: wrap; align-items: center; gap: 0;
+    justify-content: center; text-align: center;
   }
   .role-piece { white-space: nowrap; }
   .role-dot {
@@ -442,7 +444,7 @@
           <h1 class="about-headline" id="about-headline"></h1>
           <p class="about-bio">I am an Associate Professor with Tenure and Foundation Research Professor in the School of Nursing, Population Health and Systems Cooperative at the University of Minnesota. My research focuses on the development and application of artificial intelligence methods to support clinical decision-making — particularly for patients living with multiple chronic conditions (multimorbidity).</p>
           <p class="about-bio">My work spans computable clinical practice guidelines, explainable AI for clinical decision support, natural language processing for health data, and the ethical and social implications of AI in nursing and healthcare. I collaborate with researchers across medicine, computer science, and nursing informatics internationally.</p>
-          <p class="about-bio">I am a Fellow of the American Medical Informatics Association (FAMIA) and a Fellow of the International Academy of Health Sciences Informatics (FIAHSI). I serve as co-chair of the International Workshop on Health Intelligence (W3PHIAI) and the Workshop on AI in Nursing (AINurse), and am an elected board member of the AIME Society.</p>
+          <p class="about-bio">I am a Fellow of the American Medical Informatics Association (FAMIA) and a Fellow of the International Academy of Health Sciences Informatics (FIAHSI). I serve as co-chair of the International Workshop on Health Intelligence (W3PHIAI) and the Workshop on AI in Nursing (AINurse), and am co-president of the <a href="https://aimedicine.info/" target="_blank" style="color:var(--accent);text-decoration:none;">AIME Society</a>.</p>
           <div class="interest-tags" id="interest-tags"></div>
         </div>
         <div>
