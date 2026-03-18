@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Martin Michalowski, PhD, FAMIA, FIAHSI | University of Minnesota</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231c1c1e'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia%2Cserif' font-size='12' font-weight='600' fill='%23d4a842' letter-spacing='-0.5'%3EMM%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    background: var(--page-bg);
+    color: var(--text-pri);
+    min-height: 100vh;
+    display: flex;
+  }
+  :root {
+    --navy:      #1c1c1e;
+    --navy-mid:  #2a2a2e;
+    --navy-soft: #38383e;
+    --blue-acc:  #d4a842;
+    --blue-lt:   #faf3e0;
+    --text-on-navy: rgba(255,255,255,0.88);
+    --muted-on-navy: rgba(255,255,255,0.42);
+    --border-on-navy: rgba(255,255,255,0.10);
+    --surface:   #ffffff;
+    --surface-2: #f8f8f6;
+    --border:    #e2ddd5;
+    --text-pri:  #1c1c1e;
+    --text-sec:  #6b6560;
+    --text-ter:  #aca49a;
+    --accent:    #b08020;
+    --accent-lt: #faf3e0;
+    --green:     #1d9e75;
+    --green-lt:  #e6f5f0;
+    --amber:     #b07a15;
+    --amber-lt:  #fdf4e3;
+    --sidebar-w: 240px;
+    --transition: 0.18s ease;
+    --page-bg:   #f5f4f0;
+    --acc-hover-bg:     rgba(176,128,32,0.14);
+    --acc-hover-border: rgba(176,128,32,0.45);
+  }
+
+  /* ─── Layout ─────────────────────────────────────────────── */
+  #sidebar {
+    width: var(--sidebar-w); min-width: var(--sidebar-w);
+    background: var(--navy); min-height: 100vh;
+    position: fixed; top: 0; left: 0;
+    display: flex; flex-direction: column;
+    padding: 2rem 1.5rem 1.5rem; z-index: 100;
+  }
+  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* ─── Sidebar: Profile ───────────────────────────────────── */
+  .profile-photo {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: var(--navy-soft);
+    border: 2px solid var(--border-on-navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 300; color: var(--muted-on-navy);
+    margin-bottom: 1rem; overflow: hidden; flex-shrink: 0;
+  }
+  .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .sidebar-name { font-size: 14px; font-weight: 600; color: var(--text-on-navy); line-height: 1.3; margin-bottom: 6px; }
+  .sidebar-role {
+    font-size: 10.5px; font-weight: 400; color: rgba(255,255,255,0.52);
+    line-height: 1.6; margin-bottom: 1.75rem;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0;
+  }
+  .role-piece { white-space: nowrap; }
+  .role-dot {
+    display: inline-block; width: 3px; height: 3px; border-radius: 50%;
+    background: var(--blue-acc); margin: 0 5px 1px; flex-shrink: 0; opacity: 0.8;
+    vertical-align: middle;
+  }
+
+  /* ─── Sidebar: Nav ───────────────────────────────────────── */
+  nav { display: flex; flex-direction: column; gap: 2px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 10px; border-radius: 6px; cursor: pointer;
+    color: rgba(255,255,255,0.52); font-size: 11.5px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: background var(--transition), color var(--transition);
+    border: none; background: none; width: 100%; text-align: left;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75); }
+  .nav-item.active { background: rgba(255,255,255,0.12); color: #fff; }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.25); flex-shrink: 0; transition: background var(--transition); }
+  .nav-item.active .nav-dot { background: var(--blue-acc); }
+
+  /* ─── Sidebar: Stats ─────────────────────────────────────── */
+  .sidebar-stats { margin-top: auto; padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0; }
+  .stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-top: 0.5px solid var(--border-on-navy); }
+  .stat-label { font-size: 10px; color: var(--muted-on-navy); text-transform: uppercase; letter-spacing: 0.08em; }
+  .stat-val { font-size: 19px; font-weight: 300; color: #fff; }
+
+  /* ─── Sidebar: CV btn ────────────────────────────────────── */
+  .cv-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 10px; padding: 9px 14px;
+    background: var(--navy-soft); border: 0.5px solid rgba(255,255,255,0.18);
+    border-radius: 6px; color: rgba(255,255,255,0.80);
+    font-size: 11.5px; font-weight: 500; text-decoration: none;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    transition: background var(--transition), border-color var(--transition);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .cv-btn:hover { background: var(--acc-hover-bg); border-color: var(--acc-hover-border); color: #fff; }
+
+  /* ─── Sidebar: Profile icon row ─────────────────────────── */
+  .profile-icon-row {
+    display: flex; gap: 6px; margin-top: 12px; padding-top: 12px;
+    border-top: 0.5px solid var(--border-on-navy);
+  }
+  .profile-icon-btn {
+    width: 34px; height: 34px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.55); text-decoration: none;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+    position: relative; flex-shrink: 0;
+  }
+  .profile-icon-btn svg { width: 16px; height: 16px; }
+  .profile-icon-btn:hover { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.28); }
+  .profile-icon-tip {
+    position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%);
+    background: #111; color: rgba(255,255,255,0.9); font-size: 11px;
+    font-family: var(--font-sans, sans-serif); white-space: nowrap;
+    padding: 4px 8px; border-radius: 5px; pointer-events: none;
+    opacity: 0; transition: opacity 0.12s ease;
+  }
+  .profile-icon-tip::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 4px solid transparent; border-top-color: #111;
+  }
+  .profile-icon-btn:hover .profile-icon-tip { opacity: 1; }
+
+  /* ─── Main: Top Bar ──────────────────────────────────────── */
+  #topbar {
+    background: var(--surface); border-bottom: 0.5px solid var(--border);
+    padding: 0 2.5rem; height: 52px;
+    display: flex; align-items: center;
+    flex-shrink: 0; position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-section-name { font-size: 13px; font-weight: 600; color: var(--text-pri); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ─── Main: Content ──────────────────────────────────────── */
+  #content { padding: 2rem 2.5rem 4rem; flex: 1; }
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadein 0.22s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ─── Section heading ────────────────────────────────────── */
+  .section-head {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-ter);
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 12px;
+  }
+  .section-head::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  /* ─── About panel ────────────────────────────────────────── */
+  .about-grid { display: grid; grid-template-columns: 1fr 280px; gap: 2.5rem; margin-bottom: 2rem; }
+  .about-headline { font-family: 'DM Serif Display', Georgia, serif; font-size: 26px; font-weight: 400; color: var(--text-pri); line-height: 1.25; margin-bottom: 1rem; }
+  .about-bio { font-size: 15px; line-height: 1.8; color: #2a3040; margin-bottom: 0.9rem; }
+  .interest-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .tag { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.02em; }
+  .tag-blue { background: var(--accent-lt); color: #6b5010; }
+  .tag-green { background: var(--green-lt); color: #0e6b50; }
+  .tag-amber { background: var(--amber-lt); color: var(--amber); }
+  .info-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+  .info-row { display: flex; flex-direction: column; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { font-size: 10px; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+  .info-val { font-size: 13px; color: var(--text-pri); line-height: 1.45; }
+  .info-val a { color: var(--accent); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
+
+  /* ─── Scholar stats ──────────────────────────────────────── */
+  .scholar-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 2rem; }
+  .scholar-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 1rem 1.1rem; position: relative; }
+  .scholar-card-label { font-size: 10px; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .scholar-card-val { font-size: 30px; font-weight: 300; color: var(--text-pri); line-height: 1; }
+  .scholar-card-sub { font-size: 11px; color: var(--text-sec); margin-top: 4px; }
+  .scholar-source-badge { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 600; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
+  .badge-live   { background: var(--green-lt); color: #0e6b50; }
+  .badge-cached { background: var(--amber-lt); color: var(--amber); }
+  .badge-fallback { background: #f0f4f9; color: var(--text-ter); }
+  .scholar-fetch-note { font-size: 11px; color: var(--text-ter); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 6px; }
+  .scholar-fetch-note a { color: var(--accent); text-decoration: none; }
+  .scholar-spinner { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--text-ter); border-top-color: var(--accent); animation: spin 0.7s linear infinite; display: inline-block; flex-shrink: 0; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── Publications panel ─────────────────────────────────── */
+  .pub-filters { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .pub-year-filters-row .filter-btn {
+    font-size: 11px; padding: 3px 10px;
+    background: var(--surface-2); color: var(--text-ter);
+    border-color: var(--border);
+  }
+  .pub-year-filters-row .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .pub-year-filters-row .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--surface); }
+  .filter-btn {
+    font-size: 11.5px; font-weight: 500; padding: 5px 12px; border-radius: 4px;
+    border: 0.5px solid var(--border); background: var(--surface); color: var(--text-sec);
+    cursor: pointer; transition: all var(--transition); font-family: 'DM Sans', sans-serif; letter-spacing: 0.03em;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .pub-list { display: flex; flex-direction: column; gap: 0; }
+  .pub-row { display: flex; gap: 1.25rem; padding: 1.1rem 0; border-bottom: 0.5px solid var(--border); align-items: flex-start; }
+  .pub-row:last-child { border-bottom: none; }
+  .pub-year { font-size: 12px; font-weight: 600; color: var(--text-ter); min-width: 38px; padding-top: 4px; letter-spacing: 0.02em; }
+  .pub-body { flex: 1; }
+  .pub-title { font-size: 14.5px; font-weight: 400; color: var(--text-pri); line-height: 1.45; margin-bottom: 5px; }
+  .pub-authors { font-size: 12.5px; color: var(--text-sec); margin-bottom: 3px; line-height: 1.4; }
+  .pub-journal { font-size: 12.5px; color: var(--accent); font-style: italic; }
+  .pub-tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+  .pub-tag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .pt-journal { background: #e2f4f0; color: #0e6b50; }
+  .pt-conf    { background: #f0e8fd; color: #5a2fa8; }
+  .pt-book    { background: var(--amber-lt); color: var(--amber); }
+  .pt-bookch  { background: #fce8f0; color: #9a2456; }
+
+  /* ─── Grants panel ───────────────────────────────────────── */
+  .grants-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 2rem; }
+  .metric-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; }
+  .metric-label { font-size: 10px; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .metric-val { font-size: 26px; font-weight: 300; color: var(--text-pri); line-height: 1; }
+  .metric-sub { font-size: 11px; color: var(--text-sec); margin-top: 4px; }
+  .grant-list { display: flex; flex-direction: column; gap: 10px; }
+  .grant-card {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.25rem; display: flex; gap: 1.25rem; align-items: flex-start;
+  }
+  .grant-status { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .gs-active   { background: var(--green); box-shadow: 0 0 0 3px var(--green-lt); }
+  .gs-complete { background: var(--text-ter); }
+  .grant-body { flex: 1; }
+  .grant-agency { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-ter); margin-bottom: 4px; }
+  .grant-title { font-size: 14px; color: var(--text-pri); line-height: 1.4; margin-bottom: 6px; }
+  .grant-meta { font-size: 12px; color: var(--text-sec); }
+  .grant-right { text-align: right; flex-shrink: 0; }
+  .grant-amount { font-size: 17px; font-weight: 400; color: var(--accent); }
+  .grant-role { font-size: 11px; color: var(--text-ter); margin-top: 2px; }
+  .grant-divider {
+    display: flex; align-items: center; gap: 10px;
+    margin: 1rem 0 0.5rem;
+  }
+  .grant-divider::before, .grant-divider::after {
+    content: ''; flex: 1; height: 0.5px; background: var(--border);
+  }
+  .grant-divider span {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-ter);
+    white-space: nowrap;
+  }
+
+  /* ─── Presentations panel ────────────────────────────────── */
+  .pres-list { display: flex; flex-direction: column; gap: 0; }
+  .pres-row { display: flex; gap: 1.5rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border); align-items: flex-start; }
+  .pres-row:last-child { border-bottom: none; }
+  .pres-date-col { min-width: 72px; flex-shrink: 0; }
+  .pres-date { font-size: 11px; font-weight: 600; color: var(--text-ter); }
+  .pres-body { flex: 1; }
+  .pres-title { font-size: 14px; color: var(--text-pri); line-height: 1.4; margin-bottom: 4px; }
+  .pres-venue { font-size: 12px; color: var(--text-sec); }
+  .pres-type { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 5px; }
+  .pt-keynote  { background: #f0e8fd; color: #5a2fa8; }
+  .pt-invited  { background: var(--accent-lt); color: #7a5810; }
+  .pt-oral     { background: var(--green-lt); color: #0e6b50; }
+  .pt-panel    { background: var(--amber-lt); color: var(--amber); }
+
+  /* ─── News panel ─────────────────────────────────────────── */
+  .news-list { display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+  .news-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem;
+  }
+  .news-date { font-size: 11px; color: var(--text-ter); margin-bottom: 5px; }
+  .news-headline { font-size: 14.5px; color: var(--text-pri); line-height: 1.5; }
+  .news-cat { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-bottom: 6px; }
+
+  /* ─── Contact panel ──────────────────────────────────────── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 700px; }
+  .contact-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+  .contact-card h3 { font-size: 11px; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .contact-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-icon { width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0; color: var(--text-ter); }
+  .contact-text { font-size: 13.5px; color: var(--text-pri); line-height: 1.5; }
+  .contact-text a { color: var(--accent); text-decoration: none; }
+  .contact-text a:hover { text-decoration: underline; }
+
+  /* ─── Research Focus panel ───────────────────────────────── */
+  .research-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .research-card {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px;
+    padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 10px;
+    transition: border-color var(--transition); position: relative; overflow: hidden;
+  }
+  .research-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent); opacity: 0; transition: opacity var(--transition);
+  }
+  .research-card:hover { border-color: #c8b88a; }
+  .research-card:hover::before { opacity: 1; }
+  .research-card-title { font-size: 15px; font-weight: 600; color: var(--text-pri); line-height: 1.3; }
+  .research-card-desc { font-size: 13.5px; color: var(--text-sec); line-height: 1.72; flex: 1; }
+  .research-card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+  .research-tag { font-size: 10.5px; font-weight: 500; padding: 3px 8px; border-radius: 3px; background: var(--accent-lt); color: #7a5810; letter-spacing: 0.02em; }
+  .research-intro { font-size: 14.5px; color: var(--text-sec); line-height: 1.75; max-width: 680px; margin-bottom: 1.75rem; }
+
+  /* ─── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    #sidebar { position: relative; width: 100%; min-height: unset; }
+    body { flex-direction: column; }
+    #main { margin-left: 0; }
+    .about-grid, .contact-grid, .grants-summary, .scholar-stats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<script>
+  const SITE = {
+    name:        "Martin Michalowski",
+    credentials: "PhD, FAMIA, FIAHSI",
+    scholar:     "https://scholar.google.com/citations?user=qMNZlnEAAAAJ&hl=en",
+    orcid:       "https://orcid.org/0000-0003-2060-5878",
+    university_profile: "http://umn.edu/~martinm",
+    linkedin:    "https://www.linkedin.com/in/martin-michalowski/",
+    // Email obfuscated: split to prevent harvesting, assembled in JS
+    email_user:  "martinm",
+    email_domain:"umn.edu",
+    office:      "6-133 Weaver Densford\n308 Harvard St SE\nMinneapolis, MN 55455",
+    CV_PDF_URL:  "https://YOUR-HOSTED-CV-URL-HERE.pdf",
+    photo_url:   "data:image/jpeg;base64,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",
+    SCHOLAR_USER_ID: "qMNZlnEAAAAJ",
+    stats: { citations: 3591, h_index: 23, i10_index: 46 },
+    interests: [
+      "Clinical Decision Support","Artificial Intelligence in Medicine",
+      "Nursing Informatics","Multimorbidity Management",
+      "Natural Language Processing","Machine Learning",
+      "Computable Clinical Guidelines","Health Equity",
+      "Generative AI in Healthcare","mHealth & Conversational Agents"
+    ],
+  };
+</script>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<aside id="sidebar">
+  <div class="profile-photo" id="profile-photo">
+    <img id="profile-img" src="" alt="Profile photo" />
+  </div>
+  <div class="sidebar-name" id="sidebar-name"></div>
+  <div class="sidebar-role" id="sidebar-role">
+    <span class="role-piece">Associate Professor with Tenure</span>
+    <span class="role-dot"></span>
+    <span class="role-piece">Foundation Research Professor</span>
+    <span class="role-dot"></span>
+    <span class="role-piece">School of Nursing</span>
+    <span class="role-dot"></span>
+    <span class="role-piece">University of Minnesota</span>
+  </div>
+
+  <nav>
+    <button class="nav-item active" onclick="show('about')"         id="nav-about"><div class="nav-dot"></div>About</button>
+    <button class="nav-item"        onclick="show('research')"      id="nav-research"><div class="nav-dot"></div>Research Focus</button>
+    <button class="nav-item"        onclick="show('publications')"  id="nav-publications"><div class="nav-dot"></div>Publications</button>
+    <button class="nav-item"        onclick="show('grants')"        id="nav-grants"><div class="nav-dot"></div>Grants & Funding</button>
+    <button class="nav-item"        onclick="show('presentations')" id="nav-presentations"><div class="nav-dot"></div>Presentations</button>
+    <button class="nav-item"        onclick="show('news')"          id="nav-news"><div class="nav-dot"></div>News & Updates</button>
+    <button class="nav-item"        onclick="show('contact')"       id="nav-contact"><div class="nav-dot"></div>Contact</button>
+  </nav>
+
+  <div class="sidebar-stats">
+    <div class="stat-row"><span class="stat-label">Citations</span><span class="stat-val" id="stat-cites">—</span></div>
+    <div class="stat-row"><span class="stat-label">h-index</span><span class="stat-val" id="stat-hindex">—</span></div>
+    <div class="stat-row"><span class="stat-label">i10-index</span><span class="stat-val" id="stat-i10">—</span></div>
+  </div>
+
+  <a href="#" id="cv-link" class="cv-btn" target="_blank" rel="noopener">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v8M4 7l4 4 4-4M2 12v2h12v-2"/></svg>
+    Download CV
+  </a>
+
+  <div class="profile-icon-row">
+    <a href="#" id="sidebar-scholar"  target="_blank" class="profile-icon-btn" aria-label="Google Scholar">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L2 7l8 4.5L18 7 10 2zM2 7v7a8 8 0 0016 0V7"/></svg>
+      <span class="profile-icon-tip">Google Scholar</span>
+    </a>
+    <a href="#" id="sidebar-orcid"    target="_blank" class="profile-icon-btn" aria-label="ORCID">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="10" r="8.5"/><path d="M7 6.5v7M7 6.5h3.5a3 3 0 010 6H7"/></svg>
+      <span class="profile-icon-tip">ORCID</span>
+    </a>
+    <a href="#" id="sidebar-uni"      target="_blank" class="profile-icon-btn" aria-label="University Profile">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 18V9l7-6 7 6v9"/><path d="M8 18v-5h4v5"/></svg>
+      <span class="profile-icon-tip">University Profile</span>
+    </a>
+    <a href="#" id="sidebar-linkedin" target="_blank" class="profile-icon-btn" aria-label="LinkedIn">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 7h3v9H5V7zm1.5-1.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM14 7c-1.5 0-2.5.7-2.9 1.4V7H8v9h3.1v-4.7c0-1.2.6-2 1.8-2 1.1 0 1.6.8 1.6 2V16H18v-5c0-2.6-1.4-4-4-4z"/></svg>
+      <span class="profile-icon-tip">LinkedIn</span>
+    </a>
+  </div>
+</aside>
+
+<!-- ═══════════════════ MAIN ══════════════════════ -->
+<main id="main">
+  <div id="topbar">
+    <span class="topbar-section-name" id="topbar-label">About</span>
+  </div>
+
+  <div id="content">
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="panel active" id="panel-about">
+      <div class="about-grid">
+        <div>
+          <h1 class="about-headline" id="about-headline"></h1>
+          <p class="about-bio">I am an Associate Professor with Tenure and Foundation Research Professor in the School of Nursing, Population Health and Systems Cooperative at the University of Minnesota. My research focuses on the development and application of artificial intelligence methods to support clinical decision-making — particularly for patients living with multiple chronic conditions (multimorbidity).</p>
+          <p class="about-bio">My work spans computable clinical practice guidelines, explainable AI for clinical decision support, natural language processing for health data, and the ethical and social implications of AI in nursing and healthcare. I collaborate with researchers across medicine, computer science, and nursing informatics internationally.</p>
+          <p class="about-bio">I am a Fellow of the American Medical Informatics Association (FAMIA) and a Fellow of the International Academy of Health Sciences Informatics (FIAHSI). I serve as co-chair of the International Workshop on Health Intelligence (W3PHIAI) and the Workshop on AI in Nursing (AINurse), and am an elected board member of the AIME Society.</p>
+          <div class="interest-tags" id="interest-tags"></div>
+        </div>
+        <div>
+          <div class="info-card">
+            <div class="info-row"><span class="info-label">Position</span><span class="info-val">Associate Professor with Tenure<br>Foundation Research Professor</span></div>
+            <div class="info-row"><span class="info-label">Department</span><span class="info-val">School of Nursing, Population Health and Systems Cooperative</span></div>
+            <div class="info-row"><span class="info-label">University</span><span class="info-val">University of Minnesota</span></div>
+            <div class="info-row"><span class="info-label">Location</span><span class="info-val" id="info-office"></span></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-val"><a href="#" id="info-email-link" onclick="return openEmail()"><!-- assembled by JS --></a></span></div>
+            <div class="info-row"><span class="info-label">Profiles</span>
+              <span class="info-val">
+                <a href="#" id="info-scholar" target="_blank">Google Scholar</a> &middot;
+                <a href="#" id="info-orcid" target="_blank">ORCID</a> &middot;
+                <a href="#" id="info-uni-profile" target="_blank">Faculty page</a> &middot;
+                <a href="#" id="info-linkedin" target="_blank">LinkedIn</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head">Citation metrics</div>
+      <div class="scholar-stats-grid">
+        <div class="scholar-card"><span class="scholar-source-badge" id="badge-cites"></span><div class="scholar-card-label">Total Citations</div><div class="scholar-card-val" id="sc-citations">—</div><div class="scholar-card-sub">All time</div></div>
+        <div class="scholar-card"><span class="scholar-source-badge" id="badge-hindex"></span><div class="scholar-card-label">h-index</div><div class="scholar-card-val" id="sc-hindex">—</div><div class="scholar-card-sub">All time</div></div>
+        <div class="scholar-card"><span class="scholar-source-badge" id="badge-i10"></span><div class="scholar-card-label">i10-index</div><div class="scholar-card-val" id="sc-i10">—</div><div class="scholar-card-sub">All time</div></div>
+      </div>
+      <div class="scholar-fetch-note">
+        <span class="scholar-spinner" id="scholar-spinner"></span>
+        <span id="scholar-note-text">Fetching live stats from Google Scholar…</span>
+      </div>
+    </section>
+
+    <!-- ═══ RESEARCH FOCUS ═══ -->
+    <section class="panel" id="panel-research">
+      <p class="research-intro">My research develops and applies artificial intelligence methods — including automated planning, knowledge representation, machine learning, and NLP — to improve clinical decision support and patient outcomes, with a particular focus on patients with multiple chronic conditions.</p>
+      <div class="section-head">Research areas</div>
+      <div class="research-grid" id="research-grid"></div>
+    </section>
+
+    <!-- ═══ PUBLICATIONS ═══ -->
+    <section class="panel" id="panel-publications">
+      <div class="pub-filters" id="pub-type-filters">
+        <button class="filter-btn active" onclick="filterPubs('all', this)">All</button>
+        <button class="filter-btn" onclick="filterPubs('Journal Article', this)">Journal Articles</button>
+        <button class="filter-btn" onclick="filterPubs('Conference Paper', this)">Conference Papers</button>
+        <button class="filter-btn" onclick="filterPubs('Book', this)">Books &amp; Edited Volumes</button>
+        <button class="filter-btn" onclick="filterPubs('Book Chapter', this)">Book Chapters</button>
+      </div>
+      <div class="pub-filters pub-year-filters-row" id="pub-year-filters" style="margin-top:-0.5rem;"></div>
+      <div class="section-head">Publications</div>
+      <div class="pub-list" id="pub-list"></div>
+    </section>
+
+    <!-- ═══ GRANTS ═══ -->
+    <section class="panel" id="panel-grants">
+      <div class="grants-summary">
+        <div class="metric-card"><div class="metric-label">Total Funded</div><div class="metric-val">$24M+</div><div class="metric-sub">Multiple currencies across all awards</div></div>
+        <div class="metric-card"><div class="metric-label">Active Grants</div><div class="metric-val">4</div><div class="metric-sub">Currently funded</div></div>
+        <div class="metric-card"><div class="metric-label">As PI / Co-PI</div><div class="metric-val">14+</div><div class="metric-sub">Lifetime PI/Co-PI roles</div></div>
+      </div>
+      <div class="section-head">Grants &amp; Funding</div>
+      <div class="grant-list" id="grant-list"></div>
+    </section>
+
+    <!-- ═══ PRESENTATIONS ═══ -->
+    <section class="panel" id="panel-presentations">
+      <div class="pub-filters" id="pres-year-filters" style="margin-bottom:1.25rem;"></div>
+      <div class="section-head">Presentations &amp; Invited Talks</div>
+      <div class="pres-list" id="pres-list"></div>
+    </section>
+
+    <!-- ═══ NEWS ═══ -->
+    <section class="panel" id="panel-news">
+      <div class="pub-filters" id="news-year-filters" style="margin-bottom:1.25rem;"></div>
+      <div class="section-head">News &amp; Updates</div>
+      <div class="news-list" id="news-list"></div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="panel" id="panel-contact">
+      <div class="section-head">Contact</div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Office</h3>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5s4.5-5 4.5-8.5c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5"/></svg>
+            <span class="contact-text" id="contact-office"></span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4a1 1 0 011-1h10a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V4z"/><path d="M2 4l6 5 6-5"/></svg>
+            <span class="contact-text"><a href="#" id="contact-email-link" onclick="return openEmail()"><!-- assembled by JS --></a></span>
+          </div>
+        </div>
+        <div class="contact-card">
+          <h3>Academic Profiles</h3>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2L2 7l8 4.5L18 7 10 2zM2 7v7a8 8 0 0016 0V7"/></svg>
+            <span class="contact-text"><a href="#" id="contact-scholar" target="_blank">Google Scholar</a></span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8.5"/><path d="M7 6.5v7M7 6.5h3.5a3 3 0 010 6H7"/></svg>
+            <span class="contact-text"><a href="#" id="contact-orcid" target="_blank">ORCID Profile</a></span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 18V9l7-6 7 6v9"/><path d="M8 18v-5h4v5"/></svg>
+            <span class="contact-text"><a href="#" id="contact-uni-profile" target="_blank">University Faculty Page</a></span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M5 7h3v9H5V7zm1.5-1.5a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM14 7c-1.5 0-2.5.7-2.9 1.4V7H8v9h3.1v-4.7c0-1.2.6-2 1.8-2 1.1 0 1.6.8 1.6 2V16H18v-5c0-2.6-1.4-4-4-4z"/></svg>
+            <span class="contact-text"><a href="#" id="contact-linkedin" target="_blank">LinkedIn</a></span>
+          </div>
+        </div>
+        <div class="contact-card" style="grid-column: 1 / -1;">
+          <h3>For Students &amp; Collaborators</h3>
+          <p style="font-size:14px;color:#2a4060;line-height:1.75;margin-bottom:0.5rem;">I welcome inquiries from prospective PhD students and postdoctoral fellows with backgrounds in nursing, informatics, computer science, or public health. Please email a brief statement of your interests and your CV.</p>
+          <p style="font-size:14px;color:#2a4060;line-height:1.75;">Potential collaborators from industry, clinical settings, or other academic institutions are encouraged to reach out directly.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════════════ DATA ══════════════════════ -->
+<script>
+const PUBLICATIONS = [
+  {year:2026,title:"Generative AI in Healthcare: Transforming Diagnostics, Treatment, and Patient Outcomes",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Studies in Computational Intelligence. Springer Cham.",type:"Book"},
+  {year:2026,title:"Principles of Artificial Intelligence and Big Data in Healthcare",authors:"Michalowski M., Sun-Mitchell S., Delaney C.W.",journal:"In: Bridging Artificial and Human Intelligence. Springer Cham.",type:"Book"},
+  {year:2024,title:"AI for Health Equity and Fairness: Leveraging AI to Address Social Determinants of Health",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Studies in Computational Intelligence. Springer Cham.",type:"Book"},
+  {year:2023,title:"Artificial Intelligence for Personalized Medicine: Promoting Healthy Living and Longevity",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Studies in Computational Intelligence. Springer Cham.",type:"Book"},
+  {year:2023,title:"Multimodal Artificial Intelligence: A Paradigm Shift in Health Intelligence",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Studies in Computational Intelligence. Springer Cham.",type:"Book"},
+  {year:2022,title:"Artificial Intelligence in Medicine: AIME 2022 Conference Proceedings",authors:"Michalowski M., Abidi S.S.R., Abidi S.",journal:"Lecture Notes in Computer Science 13263(1). Springer.",type:"Book"},
+  {year:2022,title:"An Approach to Combining Adherence-to-Therapy and Patient Preference Models for Evaluation of Therapies in Patient-Centered Care",authors:"O'Sullivan D., Wilk S., Michalowski M., O'Sullivan H., Carrier M., Michalowski W.",journal:"In: Intelligent Decision Support Systems — Essays in Honor of Roman Slowinski. Springer Verlag, pp. 425-440.",type:"Book Chapter"},
+  {year:2022,title:"AI for Disease Surveillance and Pandemic Intelligence",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Studies in Computational Intelligence. Springer Cham.",type:"Book"},
+  {year:2022,title:"Artificial Intelligence for Nursing and Healthcare: Potentials and Cautions",authors:"Michalowski M., Park J.I.",journal:"In: Nursing and Informatics for the 21st Century (3rd Ed). Taylor & Francis Group.",type:"Book Chapter"},
+  {year:2020,title:"Artificial Intelligence in Medicine",authors:"Michalowski M., Moskovitch R.",journal:"Lecture Notes in Artificial Intelligence 12299(1). Springer.",type:"Book"},
+  {year:2020,title:"Explainable AI in Healthcare and Medicine — Building a Culture of Transparency and Accountability",authors:"Shaban-Nejad A., Michalowski M., Buckeridge D.",journal:"Studies in Computational Intelligence 914(1). Springer.",type:"Book"},
+  {year:2019,title:"Precision Health and Medicine: A Digital Revolution in Healthcare",authors:"Shaban-Nejad A., Michalowski M.",journal:"Studies in Computational Intelligence 843(1). Springer.",type:"Book"},
+  {year:2026,title:"Video-based fall risk assessment using multimodal large language models in home health care: A proof-of-concept feasibility study",authors:"Gupta P., Zhang Z., Song M., Michalowski M., Hu X., Stiglic G., Peltonen L.M., Topaz M.",journal:"Computers, Informatics, Nursing (CIN), 44(e00)",type:"Journal Article"},
+  {year:2025,title:"Advancing AI initiatives in nursing academics: Case studies and insights from thought leaders",authors:"Sockolow P., Michalowski M., Peltonen L.M., Pruinelli L., Topaz M.",journal:"Nursing Outlook, 73:5, 102527",type:"Journal Article"},
+  {year:2025,title:"Human-Centered Explainability Evaluation in Clinical Decision-Making: A Critical Review of the Literature",authors:"Bauer J.M., Michalowski M.",journal:"Journal of the American Medical Informatics Association (JAMIA), 32:9, 1477-1484",type:"Journal Article"},
+  {year:2025,title:"Rapid Review: Growing Usage of Multimodal Large Language Models in Healthcare",authors:"Gupta P., Zhang Z., Song M., Michalowski M., Hu X., Stiglic G., Topaz M.",journal:"Journal of Biomedical Informatics (JBI), 169, 104875",type:"Journal Article"},
+  {year:2025,title:"Video Annotation in Nurse Home Visits: Methodology Development and Pilot Evaluation",authors:"Zhang Z., Gupta P., Song J., Song M., Michalowski M., Hu X., Topaz M.",journal:"Computers, Informatics, Nursing (CIN), 44:1-9",type:"Journal Article"},
+  {year:2025,title:"The Overlooked Dark Side of Generative AI in Nursing: An International Think Tank's Perspective",authors:"Topaz M., Peltonen L.M., Michalowski M., Pruinelli L., Ronquillo C.E., Zhang Z., Babic A.",journal:"Journal of Nursing Scholarship (JNS), 57(4), 559-562",type:"Journal Article"},
+  {year:2025,title:"An AI-Enabled Nursing Future with No Documentation Burden: A Vision for a New Reality",authors:"Michalowski M., Topaz M., Peltonen L.M.",journal:"Journal of Advanced Nursing (JAN), 82(1), 907-912",type:"Journal Article"},
+  {year:2024,title:"Advancing artificial intelligence data ethics in nursing: future directions for nursing practice, research, and education",authors:"Ball Dunlap P.A., Michalowski M.",journal:"JMIR Nursing, 7:e62678",type:"Journal Article"},
+  {year:2024,title:"Harnessing Artificial Intelligence in Nursing - Insights from the 3rd International Workshop of AI in Nursing (AINurse2024)",authors:"Pruinelli L., Michalowski M., Peltonen L.M., Topaz M.",journal:"Computers, Informatics, Nursing (CIN), 42(10), 694-695",type:"Journal Article"},
+  {year:2024,title:"Provision and Evaluation of Explanations within an Automated Planning-Based Approach to Solving the Multimorbidity Problem",authors:"Michalowski M., Wilk S., Michalowski W., Rao M., Carrier M.",journal:"Journal of Biomedical Informatics (JBI), 156:104681",type:"Journal Article"},
+  {year:2024,title:"Machine Learning Techniques to Discover Hidden Patterns in Well-being and Resilience for Healthy Aging",authors:"Austin R.R., Jantraporn R., Michalowski M., Marquard J.",journal:"Journal of Nursing Scholarship (JNS), 57, 72-81",type:"Journal Article"},
+  {year:2024,title:"Creative and generative artificial intelligence for personalized medicine and healthcare: Hype, reality, or hyperreality?",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Experimental Biology and Medicine, 2024",type:"Journal Article"},
+  {year:2024,title:"The ChatGPT Effect: Nursing Education and Generative Artificial Intelligence",authors:"Topaz M., Peltonen L.M., Michalowski M., et al.",journal:"Journal of Nursing Education, 1-4",type:"Journal Article"},
+  {year:2023,title:"Prompt engineering when using generative AI in nursing education",authors:"O'Connor S., Peltonen L.M., Topaz M., Chen L.A., Michalowski M., et al.",journal:"Nurse Education in Practice, 103825",type:"Journal Article"},
+  {year:2023,title:"A Community-of-Practice-based Evaluation Methodology for Knowledge Intensive Computational Methods and its Application to Multimorbidity Decision Support",authors:"Van Woensel W., Tu S.W., Michalowski W., Abidi S.S.R., Michalowski M., et al.",journal:"Journal of Biomedical Informatics (JBI), 142:104395",type:"Journal Article"},
+  {year:2023,title:"Using graph rewriting to operationalize medical knowledge for the revision of concurrently applied clinical practice guidelines",authors:"Michalowski M., Rao M., Wilk S., Michalowski W., Carrier M.",journal:"Artificial Intelligence in Medicine (AIIM), 139:102550",type:"Journal Article"},
+  {year:2023,title:"Introduction to the Special Track on Artificial Intelligence and COVID-19",authors:"Michalowski M., Moskovitch R., Chawla N.",journal:"Journal of Artificial Intelligence Research (JAIR), 76(1):523-525",type:"Journal Article"},
+  {year:2022,title:"Predictive models for social functioning in healthy young adults: A machine learning study integrating neuroanatomical, cognitive, and behavioral data",authors:"Miley K., Michalowski M., Yu F., Leng E., McMorris B., Vinogradov S.",journal:"Social Neuroscience, 17(5):414-427",type:"Journal Article"},
+  {year:2022,title:"Applied artificial intelligence in healthcare: Listening to the winds of change in a post-COVID-19 world",authors:"Shaban-Nejad A., Michalowski M., Bianco S.",journal:"Experimental Biology and Medicine, 247(22)",type:"Journal Article"},
+  {year:2022,title:"Nurses' utilization of resources for patient care tasks: A survey of critical care nurses in an urban hospital setting",authors:"Brown R.J.L., Michalowski M.",journal:"Computers, Informatics, Nursing (CIN), 40(10):691-698",type:"Journal Article"},
+  {year:2022,title:"Artificial Intelligence-based technologies in nursing: A scoping literature review of the evidence",authors:"von Gerich H., Moen H., Block L.J., Chu C.H., Michalowski M., et al.",journal:"International Journal of Nursing Studies, 127:104153",type:"Journal Article"},
+  {year:2021,title:"A Clinical Decision Support System Design Framework for Nursing Practice",authors:"Lu S.C., Brown R.J.L., Michalowski M.",journal:"Applied Clinical Informatics Open, 05(02):e84-e93",type:"Journal Article"},
+  {year:2021,title:"Explainable AI: Towards Fairness, Accountability, Transparency and Trust in Healthcare",authors:"Shaban-Nejad A., Michalowski M., Brownstein J.S., Buckeridge D.",journal:"IEEE Journal of Biomedical and Health Informatics, 25(7):2374-2375",type:"Journal Article"},
+  {year:2021,title:"A Health eLearning Ontology and Procedural Reasoning Approach for Developing Personalized Courses to Teach Patients About Their Medical Condition and Treatment",authors:"Michalowski M., Wilk S., Michalowski W., et al.",journal:"International Journal of Environmental Research and Public Health (IJERPH), 18(14):7355",type:"Journal Article"},
+  {year:2021,title:"Toward an Augmented Nursing-Artificial Intelligence Future",authors:"Pruinelli L., Michalowski M.",journal:"CIN: Computers, Informatics, Nursing, 39(6), 296-297",type:"Journal Article"},
+  {year:2021,title:"Artificial intelligence in nursing: Priorities and opportunities from an international invitational think-tank",authors:"Ronquillo C., Peltonen L.M., Pruinelli L., Michalowski M., et al.",journal:"Journal of Advanced Nursing (JAN), 77(9):3707-3717",type:"Journal Article"},
+  {year:2021,title:"The Association for the Advancement of Artificial Intelligence 2020 Workshop Program",authors:"Michalowski M.",journal:"AI Magazine, 41(4), 100-114",type:"Journal Article"},
+  {year:2021,title:"MitPlan: A Planning Approach to Mitigating Adverse Interactions in Concurrently Applied Clinical Practice Guidelines",authors:"Michalowski M., Wilk S., Michalowski W., Carrier M.",journal:"Artificial Intelligence in Medicine (AIIM), 112:102002",type:"Journal Article"},
+  {year:2020,title:"Seven pillars of precision digital health and medicine",authors:"Shaban-Nejad A., Michalowski M., Peek N., Brownstein J.S., Buckeridge D.L.",journal:"Artificial Intelligence in Medicine, 103",type:"Journal Article"},
+  {year:2019,title:"Reports of The Workshops Held at the 2019 AAAI Conference on Artificial Intelligence",authors:"Michalowski M.",journal:"AI Magazine, 40(3), 67-78",type:"Journal Article"},
+  {year:2019,title:"Using Natural Language Processing Algorithms to Identify Stroke Cases and Stroke Subtypes From Neuroimaging Reports",authors:"Northuis C.A., Michalowski M., Lakshminarayan K.",journal:"Stroke, 50(Suppl_1)",type:"Journal Article"},
+  {year:2018,title:"Relationships Among Interventions and Health Literacy Outcomes for Sub-populations: A Data-Driven Approach",authors:"Michalowski M., Austin R.R., Mathiason M.A., et al.",journal:"Kontakt, Special issue on health literacy, 20(4):345-352",type:"Journal Article"},
+  {year:2018,title:"Health Intelligence: How Artificial Intelligence Transforms Population and Personalized Health",authors:"Shaban-Nejad A., Michalowski M., Buckeridge D.L.",journal:"npj Digital Medicine, 1(53)",type:"Journal Article"},
+  {year:2018,title:"Ideating Mobile Health Behavioral Support for Compliance to Therapy for Patients with Chronic Disease: A Case Study of Atrial Fibrillation Management",authors:"Peleg M., Michalowski W., Wilk S., et al.",journal:"Journal of Medical Systems, 42(11):234-249",type:"Journal Article"},
+  {year:2018,title:"Learning Neuroscience with Technology: A Scaffolded, Active Learning Approach",authors:"Schleisman K.B., Guzey S., Lie R.F., Michlin M., Michalowski M., et al.",journal:"Journal of Science Education and Technology, 27(6):566-580",type:"Journal Article"},
+  {year:2017,title:"Comprehensive Mitigation Framework for Concurrent Application of Multiple Clinical Practice Guidelines",authors:"Wilk S., Michalowski M., Michalowski W., Rosu D., Carrier M., Kezadri-Hamiaz M.",journal:"Journal of Biomedical Informatics, 66(2), 52-71",type:"Journal Article"},
+  {year:2013,title:"Clinical Practice Guidelines and Comorbid Diseases: A MiniZinc Representation of Guideline Models for Mitigating Adverse Interactions",authors:"Wilk S., Michalowski M., Michalowski W., Farion K., Lin D., Hing M.M., Mohapatra S.",journal:"Studies in Health Technology and Informatics, 192(1), 352-356",type:"Journal Article"},
+  {year:2005,title:"Automatically utilizing secondary sources to align information across sources",authors:"Michalowski M., Thakkar S., Knoblock C.A.",journal:"AI Magazine, 26(1), 33-44",type:"Journal Article"},
+  {year:2004,title:"Retrieving and Semantically Integrating Heterogeneous Data from the Web",authors:"Michalowski M., Ambite J.L., Knoblock C.A., Minton S., Thakkar S., Tuchinda R.",journal:"IEEE Intelligent Systems, 19(3), 72-79",type:"Journal Article"},
+  {year:2025,title:"Developing a novel approach to video-based fall risk assessment in home healthcare using multimodal large language models: A pilot study",authors:"Gupta P., Zhang Z., Song M., Michalowski M., Hu X., Topaz M.",journal:"AMIA 2025 Annual Symposium, Atlanta, GA",type:"Conference Paper"},
+  {year:2025,title:"CUE-X: A Framework for the Automatic Evaluation of Clinical Usefulness of Explanations for MGCDSS Recommendations",authors:"Michalowski M., Wilk S., Bauer J.M., Carrier M., Viktor H., Michalowski W.",journal:"AIME 2025, Pavia Italy (pp. 293-303)",type:"Conference Paper"},
+  {year:2024,title:"HealthMarshall: A Path through the Forest behind Phone Trees in Healthcare",authors:"Solinsky J., Michalowski M., Li C., Pakhomov S.",journal:"AMIA 2024 Annual Symposium, San Francisco CA",type:"Conference Paper"},
+  {year:2024,title:"Manually-Curated Versus LLM-Generated Explanations for Complex Patient Cases: An Exploratory Study with Physicians [Best Paper Award]",authors:"Michalowski M., Wilk S., Bauer J.M., Carrier M., Delluc A., Le Gal G., Wang T., Siegal D., Michalowski W.",journal:"AIME 2024, Salt Lake City UT (pp. 313-323)",type:"Conference Paper"},
+  {year:2024,title:"Significance of Data Ethics to Achieving Responsible Artificial Intelligence in Nursing",authors:"Ball Dunlap P.A., Michalowski M.",journal:"2024 Nursing Knowledge: Big Data Science Conference",type:"Conference Paper"},
+  {year:2024,title:"Acceptance of Explainable Artificial Intelligence in Clinical Decision Making: A Critical Review of the Literature",authors:"Bauer J.M., Michalowski M.",journal:"2024 Nursing Knowledge: Big Data Science Conference",type:"Conference Paper"},
+  {year:2024,title:"From Data to Insights: Examining Cognitive Challenges and Whole-Person Health through Machine Learning",authors:"Austin R.R., Jantraporn R., Michalowski M., Marquard J.",journal:"ANIA Annual Conference, Chicago IL",type:"Conference Paper"},
+  {year:2024,title:"David (LLaMA) takes on Goliath (GPT-4) in an NLP Task of Extracting Adverse Drug Reactions from DailyMed",authors:"Li C., Solinsky J., Michalowski M., Pakhomov S.",journal:"AMIA 2024 Informatics Summit, Boston MA",type:"Conference Paper"},
+  {year:2024,title:"Introduction to the Special Track on Artificial Intelligence and COVID-19 (Abstract Reprint)",authors:"Michalowski M., Moskovitch R., Chawla N.V.",journal:"AAAI 2024, Vancouver Canada (pp. 22707-22707)",type:"Conference Paper"},
+  {year:2024,title:"A Conversational Agent for Early Detection of Neurotoxic Effects of Medications through Automated Intensive Observation",authors:"Pakhomov S., Solinsky J., Michalowski M., Bachanova V.",journal:"Pacific Symposium on Biocomputing (PSB) 2024, Big Island HI",type:"Conference Paper"},
+  {year:2023,title:"Automated Neural Nursing Assistant (ANNA): An Over-The-Phone System for Cognitive Monitoring",authors:"Solinsky J., Finzel R., Michalowski M., Pakhomov S.",journal:"INTERSPEECH 2023, Dublin Ireland",type:"Conference Paper"},
+  {year:2023,title:"Examining Whole-person Health for Adults with and without Thinking (Cognitive) Challenges",authors:"Austin R.R., Jantraporn R., Michalowski M., Marquard J.",journal:"AMIA 2023 Annual Symposium, New Orleans LA",type:"Conference Paper"},
+  {year:2023,title:"Explainability in an Automated Planning-Based Approach to Solving the Multimorbidity Problem [Best Paper Award]",authors:"Michalowski M., Wilk S., Rao M., Carrier M., Michalowski W.",journal:"KR4HC 2023, Portoroz Slovenia (pp. 33-47)",type:"Conference Paper"},
+  {year:2023,title:"TRESTLE: Toolkit for Reproducible Execution of Speech, Text and Language Experiments",authors:"Li C., Xu W., Cohen T., Michalowski M., Pakhomov S.",journal:"AMIA 2023 Informatics Summit, Seattle WA",type:"Conference Paper"},
+  {year:2023,title:"Application of Gradient Boosted Decision Trees for Understanding Predictive Factors of Depression",authors:"Rajamani A., Agrawal K.J., Meredith L., Michalowski M.",journal:"AMIA 2023 Clinical Informatics Conference, Chicago IL",type:"Conference Paper"},
+  {year:2022,title:"Understanding Health Inequity and Outcomes",authors:"Michalowski M., Austin R.R., Mathiason M.A., et al.",journal:"CANS 2022, Washington DC",type:"Conference Paper"},
+  {year:2022,title:"Towards an AI planning-based pipeline for the management of multimorbid patients",authors:"Rao M., Michalowski M., Wilk S., Michalowski W., Coles A., Carrier M.",journal:"AIME 2022, Halifax Canada (pp. 14-23)",type:"Conference Paper"},
+  {year:2021,title:"Adapting Curriculum to Transform Nursing Informatics Doctoral Education and to meet Workforce Needs",authors:"Austin R.R., Pruinelli L., Michalowski M., et al.",journal:"AMIA Academic Forum, San Diego CA",type:"Conference Paper"},
+  {year:2021,title:"Towards a framework for comparing functionalities of multimorbidity clinical decision support",authors:"O'Sullivan D., Van Woensel W., Wilk S., Michalowski M., et al.",journal:"AMIA 2021 Annual Symposium (pp. 919-928)",type:"Conference Paper"},
+  {year:2021,title:"Everyday Living Artificial Intelligence Hub",authors:"Finzel R., Singh E., Michalowski M., Pakhomov S., Gini M.",journal:"DaSH-LA Workshop, Virtual",type:"Conference Paper"},
+  {year:2021,title:"MitPlan 2.0: Enhanced Support for Multi-Morbid Patient Management Using Planning",authors:"Michalowski M., Rao M., Wilk S., Michalowski W., Carrier M.",journal:"AIME 2021, Porto Portugal (pp. 276-286)",type:"Conference Paper"},
+  {year:2021,title:"Measuring Physiological Markers of Stress During Conversational Agent Interactions",authors:"Datar S., Ferland L., Foo E.W., Kotlyar M., Holschuh B., Gini M., Michalowski M., Pakhomov S.",journal:"W3PHIAI-21, Virtual",type:"Conference Paper"},
+  {year:2021,title:"Leading Doctoral Education in Nursing Informatics",authors:"Austin R.R., Pruinelli L., Michalowski M., et al.",journal:"AACN 2021 Doctoral Education Conference",type:"Conference Paper"},
+  {year:2020,title:"Strategy to Bolster Didactic Curriculum to Address Informatics Workforce Needs",authors:"Rajamani S., Austin R.R., Michalowski M., et al.",journal:"AMIA 2020 Annual Symposium Academic Forum, Chicago IL",type:"Conference Paper"},
+  {year:2019,title:"How Do Spinal Surgeons Perceive Impact of Factors Used in Post-Surgical Complication Risk Scores?",authors:"Parimbelli E., Wilk S., O'Sullivan D., Michalowski W., Michalowski M.",journal:"AMIA 2019 Annual Symposium (pp. 699-706)",type:"Conference Paper"},
+  {year:2019,title:"MitPlan: A Planning Approach to Mitigating Adverse Interactions in Concurrently Applied Clinical Practice Guidelines",authors:"Michalowski M., Wilk S., Michalowski W., Carrier M.",journal:"AIME 2019, Poznan Poland (pp. 93-103)",type:"Conference Paper"},
+  {year:2019,title:"Using Principal Component Analysis To Derive A Metric For Healthcare System-Related Health Inequity",authors:"Mathiason M.A., Michalowski M., Schorr E.",journal:"2019 Omaha System International Conference, Edina MN",type:"Conference Paper"},
+  {year:2019,title:"Relationships Among Interventions And Health Literacy Outcomes For Sub-Populations: A Data-Driven Approach",authors:"Michalowski M., Austin R.R., Mathiason M.A., Schorr E.",journal:"2019 Omaha System International Conference, Edina MN",type:"Conference Paper"},
+  {year:2018,title:"Representing Drug Classes for Mitigating Concurrently Applied CPGs",authors:"Michalowski M., Wilk S., Michalowski W., Carrier M.",journal:"AMIA 2018 Annual Symposium (pp. 2070), San Francisco CA",type:"Conference Paper"},
+  {year:2017,title:"Personalization of Clinical Practice Guidelines for Patients with Multi-morbidities",authors:"Wilk S., Michalowski M., Michalowski W.",journal:"Code4Life Scientific, Poznan Poland (pp. 14-15)",type:"Conference Paper"},
+  {year:2017,title:"A Data- and Expert-driven Decision Support Framework for Helping Patients Adhere to Therapy",authors:"Wilk S., O'Sullivan D., Michalowski M., Bonaccio S., Michalowski W., Peleg M.",journal:"KRH4C 2017, Vienna Austria",type:"Conference Paper"},
+  {year:2017,title:"AFGuide System to Support Personalized Management of Atrial Fibrillation",authors:"Michalowski M., Michalowski W., O'Sullivan D., Wilk S., Carrier M.",journal:"W3PHIAI 2017, San Francisco CA",type:"Conference Paper"},
+  {year:2017,title:"Using Constraint Logic Programming for the Verification of Customized Decision Models for Clinical Guidelines",authors:"Wilk S., Fux A., Michalowski M., Peleg M., Soffer P.",journal:"AIME 2017, Vienna Austria (pp. 37-47)",type:"Conference Paper"},
+  {year:2015,title:"Expanding a First-Order Logic Mitigation Framework to Handle Multimorbid Patient Preferences",authors:"Michalowski M., Wilk S., Rosu D., Kezadri M., Michalowski W., Carrier M.",journal:"AMIA 2015 Annual Symposium (pp. 895-903)",type:"Conference Paper"},
+  {year:2014,title:"First-Order Logic Theory for Manipulating Clinical Practice Guidelines Applied to Comorbid Patients [Distinguished Paper Award Finalist]",authors:"Michalowski M., Wilk S., Tan X., Michalowski W.",journal:"AMIA 2014 Annual Symposium (pp. 892-898)",type:"Conference Paper"},
+  {year:2014,title:"Using First-Order Logic to Represent Clinical Practice Guidelines and to Mitigate Adverse Interactions",authors:"Michalowski M., Wilk S., Tan X., Michalowski W., Rosu D.",journal:"AAAI 2014 Fall Symposium HIAI (pp. 15-21)",type:"Conference Paper"},
+  {year:2014,title:"Using First-Order Logic to Represent Clinical Practice Guidelines and to Mitigate Adverse Interactions",authors:"Wilk S., Michalowski M., Tan X., Michalowski W.",journal:"KR4HC 2014, Vienna Austria (pp. 45-61)",type:"Conference Paper"},
+  {year:2013,title:"Procedural Approach to Mitigating Concurrently Applied Clinical Practice Guidelines",authors:"Michalowski M., Wilk S., Michalowski W., Tan X., Lin D., Farion K., Mohapatra S.",journal:"HIAI 2013, Bellevue WA (pp. 47-52)",type:"Conference Paper"},
+  {year:2013,title:"Using Constraint Logic Programming to Implement Iterative Actions and Numerical Measures during Mitigation of Concurrently Applied Clinical Practice Guidelines",authors:"Michalowski M., Wilk S., Michalowski W., Lin D., Farion K., Mohapatra S.",journal:"AIME 2013, Murcia Spain (pp. 17-23)",type:"Conference Paper"},
+  {year:2011,title:"A Constraint Logic Programming Approach to Identifying Inconsistencies in Clinical Practice Guidelines for Patients with Comorbidity",authors:"Michalowski M., Hing M.M., Wilk S., Michalowski W., Farion K.",journal:"AIME 2011, Bled Slovenia (pp. 296-301)",type:"Conference Paper"},
+  {year:2011,title:"Bayesian Learning of Generalized Board Positions for Improved Move Prediction in Computer Go",authors:"Michalowski M., Boddy M., Neilsen M.",journal:"AAAI-11, San Francisco CA (pp. 815-820)",type:"Conference Paper"},
+  {year:2011,title:"Reconciliation of Concurrently Applied Clinical Practice Guidelines Using Constraint Logic Programming",authors:"Wilk S., Michalowski M., Hing M.M., Michalowski W., Farion K.",journal:"HIBIT 2011, Izmir Turkey (pp. 138-144)",type:"Conference Paper"},
+  {year:2011,title:"Reconciling Pairs of Concurrently Used Clinical Practice Guidelines Using Constraint Logic Programming",authors:"Wilk S., Michalowski M., Michalowski W., Hing M.M., Farion K.",journal:"AMIA 2011 Annual Symposium (pp. 944-953)",type:"Conference Paper"},
+  {year:2011,title:"FUSED: A Tool Integration Framework for Collaborative System Engineering",authors:"Boddy M., Michalowski M., Schwerdfeger A., Shackleton H., Vestal S.",journal:"AVICPS-11, Vienna Austria (pp. 1-8)",type:"Conference Paper"},
+  {year:2010,title:"Coordinated Management of Large-Scale Networks Using Constraint Satisfaction",authors:"Michalowski M., Boddy M., Carpenter T.",journal:"SecArt 2010, Atlanta GA (pp. 2-9)",type:"Conference Paper"},
+  {year:2010,title:"Enhanced Document Representation to Support Automatic Retrieval of Clinical Evidence from The Cochrane Library",authors:"O'Sullivan D., Michalowski W., Michalowski M., Wilk S., Farion K.",journal:"KEDDH/BIBM-10, Hong Kong China (pp. 461-466)",type:"Conference Paper"},
+  {year:2010,title:"Experienced Physicians and Automatic Generation of Decision Rules from Clinical Data",authors:"Klement W., Wilk S., Michalowski M., Farion K.",journal:"RSCTC 2010, Warsaw Poland (pp. 207-216)",type:"Conference Paper"},
+  {year:2010,title:"Identifying Inconsistencies in Multiple Clinical Practice Guidelines for a Patient with Comorbidity",authors:"Hing M.M., Michalowski M., Wilk S., Michalowski W., Farion K.",journal:"KEDDH/BIBM-10, Hong Kong China (pp. 447-452)",type:"Conference Paper"},
+  {year:2007,title:"Exploiting Automatically Inferred Constraint-Models for Building Identification in Satellite Imagery",authors:"Michalowski M., Knoblock C.A., Bayer K.M., Choueiry B.Y.",journal:"ACM GIS 2007, Seattle WA (pp. 35-42)",type:"Conference Paper"},
+  {year:2007,title:"Exploiting Problem Data to Enrich Models of Constraint Problems",authors:"Michalowski M., Knoblock C.A., Choueiry B.Y.",journal:"ModRef 2007, Providence RI (pp. 1-15)",type:"Conference Paper"},
+  {year:2007,title:"Exploiting Problem Data to Refine Models of Constraint Problems",authors:"Michalowski M.",journal:"CP-07 Doctoral Programme, Providence RI (pp. 97-102)",type:"Conference Paper"},
+  {year:2007,title:"Reformulating Constraint Models Using Input Data",authors:"Michalowski M., Knoblock C.A., Choueiry B.Y.",journal:"SARA-07, Whistler Canada (pp. 402-404)",type:"Conference Paper"},
+  {year:2007,title:"Reformulating Constraint Satisfaction Problems to Improve Scalability",authors:"Bayer K.M., Michalowski M., Choueiry B.Y., Knoblock C.A.",journal:"SARA-07, Whistler Canada (pp. 64-79)",type:"Conference Paper"},
+  {year:2007,title:"Reformulating CSPs for Scalability with Application to Geospatial Reasoning",authors:"Bayer K.M., Michalowski M., Choueiry B.Y., Knoblock C.A.",journal:"CP-07, Providence RI (pp. 164-179)",type:"Conference Paper"},
+  {year:2006,title:"A Generalized Query Framework for Geospatial Reasoning",authors:"Michalowski M.",journal:"AAAI-06 Doctoral Consortium, Boston MA (pp. 1922-1923)",type:"Conference Paper"},
+  {year:2005,title:"A Heterogeneous Field Matching Method for Record Linkage",authors:"Minton S.N., Nanjo C., Knoblock C.A., Michalowski M., Michelson M.",journal:"ICDM-2005, Houston TX (pp. 314-321)",type:"Conference Paper"},
+  {year:2004,title:"Exploiting Secondary Sources for Unsupervised Record Linkage",authors:"Michalowski M., Thakkar S., Knoblock C.A.",journal:"VLDB Workshop on Information Integration, Toronto Canada (pp. 34-39)",type:"Conference Paper"},
+  {year:2003,title:"Exploiting Secondary Sources for Automatic Object Consolidation",authors:"Michalowski M., Thakkar S., Knoblock C.A.",journal:"KDD Workshop on Data Cleaning, Washington DC (pp. 34-36)",type:"Conference Paper"}
+];
+
+const GRANTS = [
+  {agency:"Horizon IHI (EU)",mechanism:"Call 9",title:"GUIDE-AI: Guiding your treatment with current evidence",amount:"€9.49M",period:"2025–2029",role:"Co-Investigator",status:"active"},
+  {agency:"American Nurses Foundation",mechanism:"Research Grant",title:"NurseAssist-AI: Leveraging AI to Minimize Documentation and Maximize Decision Support in Home Healthcare",amount:"$466,590",period:"2025–2027",role:"Consultant",status:"active"},
+  {agency:"NIH / NIA",mechanism:"R01",title:"Developing Data-Driven Clinical Signatures for People who Experience Hallucinations",amount:"$1,461,048",period:"2024–2029",role:"Co-Investigator",status:"active"},
+  {agency:"NIH / NCI",mechanism:"",title:"Improving safety and access to immune effector cell therapy with artificial intelligence technology",amount:"$347,348",period:"2024–2026",role:"Co-Investigator",status:"active"},
+  {agency:"Brocher Foundation",mechanism:"Workshop in Residence",title:"Embedding nursing expertise in artificial intelligence-based health technology development",amount:"6,000 CHF",period:"2024",role:"Co-Principal Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"Foundation Faculty Grant",title:"Enabling Multimodal Machine Learning for Risk Prediction in Home Healthcare Settings",amount:"$2,500",period:"2024",role:"Principal Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"Hattori Grant",title:"Using Video Data to Improve Risk Prediction Models for Home Healthcare Settings",amount:"$2,000",period:"2024",role:"Principal Investigator",status:"complete"},
+  {agency:"NIH / NIA",mechanism:"Pilot",title:"Combining Older Adults' Clinical and Non-Clinical Data Using Data-Driven Whole-Person User Personas",amount:"$146,675",period:"2022–2024",role:"Co-Principal Investigator",status:"complete"},
+  {agency:"State of Minnesota",mechanism:"CMS",title:"Natural Language Conversational Agent Technology for MnCHOICES Certified Assessors",amount:"$650,002",period:"2019–2024",role:"Co-Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"UMII Large Seed Grant",title:"A Multi-Modal Data Integration Approach to Improve Health Care Management",amount:"$159,966",period:"2022–2023",role:"Principal Investigator",status:"complete"},
+  {agency:"NIH / NIMHD",mechanism:"SBIR Phase 1",title:"Precision Assessment Algorithm for Reducing Disaster-related Respiratory Health Disparities",amount:"$228,344",period:"2021–2022",role:"Co-Principal Investigator",status:"complete"},
+  {agency:"NIH / NIA",mechanism:"R21 Supplement",title:"Computerized assessment of linguistic indicators of lucidity in Alzheimer's Disease dementia",amount:"$228,530",period:"2021–2022",role:"Co-Principal Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"School of Nursing Foundation Faculty Grant",title:"Understanding Differential Intervention Effectiveness in Public Health Nursing and the Social and Behavioral Determinants of Health",amount:"$3,000",period:"2020–2022",role:"Principal Investigator",status:"complete"},
+  {agency:"NSF",mechanism:"EAGER",title:"Addressing Sociotechnical Challenges of Conversational Agents and Interventions in the Context of Elderly Care",amount:"$325,000",period:"2020–2022",role:"Principal Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"MnRI Seed Grant",title:"Conversational Agents and Interventions in Health Care",amount:"$22,500",period:"2020–2021",role:"Co-Principal Investigator",status:"complete"},
+  {agency:"Brocher Foundation",mechanism:"Workshop in Residence",title:"Artificial Intelligence for Nursing: Ethical, Legal and Social Implications",amount:"10,000 EUR",period:"2019",role:"Co-Principal Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"Grand Challenges Phase III",title:"Improving Health and Wellbeing with Personalized, Pervasive Technology",amount:"$325,000",period:"2019–2021",role:"Co-Investigator",status:"complete"},
+  {agency:"University of Minnesota",mechanism:"Fall Grant-In-Aid",title:"Supporting Evidence-Based Patient Management Using Artificial Intelligence Methods",amount:"$47,000",period:"2019–2021",role:"Principal Investigator",status:"complete"},
+  {agency:"NIH",mechanism:"SBIR Phase 1 & 2",title:"BrainAware: Interactive digital psychoeducation for adolescents and young adults with substance use disorder",amount:"$1,100,100",period:"2018–2022",role:"Technology Lead",status:"complete"},
+  {agency:"NSF",mechanism:"SBIR Phase 1 & 2",title:"Collaborative Game Approach to Support Personalized Instruction of Difficult-To-Teach Science Concepts",amount:"$954,000",period:"2016–2019",role:"Technology Lead",status:"complete"},
+  {agency:"Adventium Labs",mechanism:"Internal Research Grant",title:"Mitigating Clinical Practice Guidelines for Multi-Morbid Patients",amount:"$50,000",period:"2015–2016",role:"Principal Investigator",status:"complete"},
+  {agency:"NIH",mechanism:"SBIR Phase 1 & 2",title:"iNeuron: A contemporary platform for neuroscience education",amount:"$1,600,000",period:"2011–2016",role:"Principal Investigator",status:"complete"},
+  {agency:"NASA",mechanism:"SBIR Phase 2",title:"Constraint-Checking Editor for Procedure Tracking",amount:"$750,000",period:"2012–2015",role:"Co-Investigator",status:"complete"},
+  {agency:"DARPA",mechanism:"Research",title:"Allocation of Missions Built on Resource Optimization",amount:"$2,100,000",period:"2011–2015",role:"Co-Investigator",status:"complete"},
+  {agency:"NAVAIR",mechanism:"SBIR Phase 1 & 2",title:"STEAF: A Spatio-temporal Extension and Analysis Framework",amount:"$800,000",period:"2011–2014",role:"Principal Investigator",status:"complete"},
+  {agency:"DARPA",mechanism:"Research",title:"Formal United System Engineering Development Language (FUSED)",amount:"$1,200,000",period:"2010–2011",role:"Co-Investigator",status:"complete"},
+  {agency:"DARPA",mechanism:"Seedlings",title:"Using Go as a Platform for Knowledge Guided Exploration",amount:"$90,000",period:"2009–2011",role:"Co-Investigator",status:"complete"},
+  {agency:"DARPA / AFRL",mechanism:"SBIR Phase 1 & 2",title:"Cyber Craft System Scaling (C2S2)",amount:"$740,000",period:"2008–2010",role:"Co-Investigator",status:"complete"},
+  {agency:"AFOSR",mechanism:"Research",title:"InfoFuse: Interleaved Information Gathering and Reasoning for Information Fusion",amount:"$740,000",period:"2007–2008",role:"Co-Investigator",status:"complete"},
+];
+
+const PRESENTATIONS = [
+  {date:"Mar 2026",title:"Guiding Your Treatment with Current Evidence: How AI-Powered Guideline Navigators Can Help Ensure Chronically Ill Patients Receive the Right Treatment",venue:"Doctoral Symposium, University of Maribor, Maribor, Slovenia",type:"Invited"},
+  {date:"Jan 2026",title:"Eliminating Documentation Burden Through Multimodal AI: From Static Records to Living Care Companions",venue:"Multimodal AI at the Crossroads, Columbia University, New York, NY",type:"Keynote"},
+  {date:"Oct 2025",title:"Artificial Intelligence for Nursing Science: Shaping the Future of Clinical Decision Support",venue:"28th Information Society Multiconference (SIZN), Ljubljana, Slovenia",type:"Keynote"},
+  {date:"Sep 2025",title:"Explainable AI for Clinical Decision Support in Multimorbidity: Toward Transparent and Personalized Care",venue:"International Conference on AI for Science 2025, Ljubljana, Slovenia",type:"Keynote"},
+  {date:"Apr 2025",title:"AI in Nursing: Augmentation, Not Replacement",venue:"Smart Care Team Spotlight Podcast, Virtual",type:"Invited"},
+  {date:"Apr 2025",title:"Empowering Oncology Nursing with Clinical Decision Support Systems: Enhancing Care through AI and Data Integration",venue:"ONS 50th Annual Congress, Denver, CO",type:"Invited"},
+  {date:"Mar 2025",title:"The Future of Caring: How AI is Transforming Nursing",venue:"United Nations Commission on the Status of Women (CSW69), Virtual",type:"Invited"},
+  {date:"Mar 2025",title:"Leveraging Clinical Decision Support Systems to Address Multimorbidity in Aging Populations",venue:"PennAITech Webinar, Virtual",type:"Invited"},
+  {date:"Dec 2024",title:"Building Better Clinical Decision Systems with LLMs: Challenges and Opportunities",venue:"University of Minnesota NLP-IE Program Meeting, Minneapolis, MN",type:"Invited"},
+  {date:"Nov 2024",title:"Ethics in AI: Transforming Healthcare Responsibly",venue:"Brocher Workshop on Embedding Nursing Expertise in AI-based Health Technology, Geneva, Switzerland",type:"Invited"},
+  {date:"Oct 2024",title:"Use of AI in Research and Healthcare",venue:"University of Minnesota School of Dentistry Research Retreat, Minneapolis, MN",type:"Panel"},
+  {date:"Jul 2024",title:"Co-creating Constitutional AI Principles for Nursing: A Public Deliberation",venue:"16th International Congress in Nursing Informatics (NI2024), Manchester, UK",type:"Oral"},
+  {date:"Jul 2024",title:"Manually-Curated Versus LLM-Generated Explanations for Complex Patient Cases: An Exploratory Study with Physicians",venue:"AIME 2024, Salt Lake City, UT",type:"Oral"},
+  {date:"Mar 2024",title:"Exploring the Ethical Landscape: AI in Research and Beyond",venue:"University of Minnesota Research Ethics Week, Minneapolis, MN",type:"Panel"},
+  {date:"Feb 2024",title:"Ethics in AI: Transforming Healthcare Responsibly",venue:"University of Minnesota Research Ethics Week, Minneapolis, MN",type:"Invited"},
+  {date:"Feb 2024",title:"Introduction to the Special Track on Artificial Intelligence and COVID-19",venue:"38th Annual AAAI Conference, Vancouver, Canada",type:"Oral"},
+  {date:"Nov 2023",title:"Crash Course on Generative Artificial Intelligence in Healthcare",venue:"Mayo Clinic Department of Immunology Retreat, Rochester, MN",type:"Keynote"},
+  {date:"Oct 2023",title:"Using AI to Support the Management of a Multimorbid Patient: Challenges and Opportunities",venue:"2023 Norfleet Forum, UTHSC Department of Genetics, Memphis, TN",type:"Invited"},
+  {date:"Jun 2023",title:"Explainability in an Automated Planning-Based Approach to Solving the Multimorbidity Problem",venue:"AIME 2023, Portoroz, Slovenia",type:"Oral"},
+  {date:"Mar 2023",title:"Innovative Approaches: Informatics/Big Data to Advance SDGs and Health for All",venue:"United Nations NGO CSW Forum 67, Virtual",type:"Panel"},
+  {date:"Jun 2022",title:"Towards an AI planning-based pipeline for the management of multimorbid patients",venue:"AIME 2022, Halifax, Canada",type:"Oral"},
+  {date:"Mar 2022",title:"Designing and Evaluating Clinical Decision Support for the Management of Multimorbid Patients using AI",venue:"Mayo Clinic Artificial Intelligence Interest Group, Virtual",type:"Invited"},
+  {date:"Mar 2022",title:"Using Artificial Intelligence to Model and Support the Management of Multimorbid Patients",venue:"University of Minnesota IMA Data Science Seminars, Minneapolis, MN",type:"Invited"},
+  {date:"Jan 2022",title:"Artificial Intelligence and Nursing: The Future is Now",venue:"VA Nursing Informatics Continuing Education Series, Virtual",type:"Invited"},
+  {date:"Oct 2021",title:"Towards a framework for comparing functionalities of multimorbidity clinical decision support",venue:"AMIA 2021 Annual Symposium, San Diego, CA",type:"Oral"},
+  {date:"Jun 2021",title:"Artificial Intelligence and the Future of Nursing",venue:"2021 Nursing Knowledge: Big Data Science Conference, Virtual",type:"Panel"},
+  {date:"Jun 2021",title:"Future of AI in Healthcare: Helping Patients and Physicians Follow Evidence-Based Care",venue:"Healthcare Systems Engineering Program, Loyola Marymount University, Virtual",type:"Invited"},
+  {date:"Jun 2020",title:"AI for HEOR and Medical Affairs",venue:"EvidScience Panel Series, Virtual",type:"Panel"},
+  {date:"Nov 2019",title:"Artificial Intelligence and Education: Transforming Curriculum and Delivery",venue:"The Study Club, Minneapolis, MN",type:"Invited"},
+  {date:"Oct 2019",title:"Artificial Intelligence and Nursing: The What, the Why, and the How",venue:"Brocher Workshop on AI for Nursing, Geneva, Switzerland",type:"Invited"},
+];
+
+const NEWS = [
+  {date:"March 2026",category:"Invited Talk",cat_style:"background:#f0e8fd;color:#5a2fa8",headline:"Invited keynote at the University of Maribor Doctoral Symposium on AI-Powered Guideline Navigation for chronic illness management."},
+  {date:"January 2026",category:"Keynote",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Delivered keynote on eliminating documentation burden through Multimodal AI at Columbia University, New York."},
+  {date:"October 2025",category:"Keynote",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Keynote speaker at the 28th Information Society Multiconference (SIZN) on AI for Nursing Science, Ljubljana, Slovenia."},
+  {date:"2025",category:"Grant",cat_style:"background:#eaf3de;color:#1a6b30",headline:"GUIDE-AI project funded by Horizon Innovative Health Initiative (EU) — €9.49M across consortium (2025–2029). Role: Co-Investigator."},
+  {date:"2025",category:"Grant",cat_style:"background:#eaf3de;color:#1a6b30",headline:"NurseAssist-AI funded by the American Nurses Foundation ($466,590) to develop AI-driven documentation and decision support for home healthcare."},
+  {date:"2024",category:"Award",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Best Paper Award at the 22nd International Conference on Artificial Intelligence in Medicine (AIME 2024), Salt Lake City, UT."},
+  {date:"2024",category:"Fellowship",cat_style:"background:#eaf3de;color:#1a6b30",headline:"Elected Fellow of the International Academy of Health Sciences Informatics (FIAHSI)."},
+  {date:"2023",category:"Award",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Best Paper Award at the 13th Workshop on Knowledge Representation for Health Care (KR4HC 2023), Portoroz, Slovenia."},
+  {date:"2020",category:"Fellowship",cat_style:"background:#eaf3de;color:#1a6b30",headline:"Elected Fellow of the American Medical Informatics Association (FAMIA)."},
+  {date:"2018",category:"Award",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Elected Senior Member of the Association for the Advancement of Artificial Intelligence (AAAI)."},
+  {date:"2014",category:"Award",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Distinguished Paper Award Finalist at the AMIA Annual Symposium."},
+];
+
+const RESEARCH_TOPICS = [
+  {title:"Clinical Decision Support & Multimorbidity",description:"My primary research focus is the design and evaluation of AI-driven clinical decision support systems for patients with multiple concurrent chronic conditions. I develop automated planning and reasoning approaches that identify and mitigate harmful interactions between concurrently applied clinical practice guidelines.",tags:["CDS","Multimorbidity","Clinical Practice Guidelines","Automated Planning"]},
+  {title:"Explainable AI in Medicine",description:"I investigate methods for generating and evaluating clinically useful explanations for AI system recommendations. This includes comparison of manually curated versus LLM-generated explanations, and developing frameworks to assess the clinical usefulness of explanations in real-world decision contexts.",tags:["XAI","Explainability","LLMs","Clinical Usefulness"]},
+  {title:"Nursing Informatics & AI",description:"I study the intersection of nursing science and artificial intelligence — including how AI can reduce documentation burden for nurses, support evidence-based practice, and raise important ethical, legal, and social questions that the nursing profession must engage with.",tags:["Nursing AI","Documentation Burden","ELSI","EHR"]},
+  {title:"Natural Language Processing for Health",description:"I apply NLP and large language models to extract actionable clinical information from unstructured health data — including clinical notes, neuroimaging reports, and personal health diaries — and to build conversational agents for patient monitoring and support.",tags:["NLP","LLMs","Conversational Agents","Clinical Text"]},
+  {title:"Generative AI in Healthcare",description:"I examine the opportunities and risks of generative AI in clinical and educational healthcare settings. This includes evaluation of ChatGPT and similar tools in nursing education, prompt engineering for clinical use, and the ethical implications of generative AI for health equity.",tags:["Generative AI","ChatGPT","Health Equity","AI Ethics"]},
+  {title:"Multimodal Machine Learning",description:"I develop machine learning methods that integrate heterogeneous data sources — including EHR, video, wearables, and speech — to build richer predictive models for risk assessment in home healthcare, aging, and mental health settings.",tags:["Multimodal AI","Risk Prediction","Video Analysis","Home Healthcare"]},
+];
+</script>
+
+<!-- ═══════════════════ JS ════════════════════════ -->
+<script>
+  /* ── Email obfuscation ── */
+  function getEmail() { return SITE.email_user + '@' + SITE.email_domain; }
+  function openEmail() {
+    window.location.href = 'mailto:' + getEmail();
+    return false;
+  }
+  function renderEmail(linkId) {
+    const el = document.getElementById(linkId);
+    if (!el) return;
+    const email = getEmail();
+    el.textContent = email;
+    el.href = 'mailto:' + email;
+  }
+
+  /* ── Init site ── */
+  function initSite() {
+    const S = SITE;
+    document.title = S.name + ', ' + S.credentials + ' | University of Minnesota';
+    document.getElementById('sidebar-name').textContent = S.name + ', ' + S.credentials;
+    // sidebar-role is static HTML — do not overwrite
+
+    // Photo
+    const img = document.getElementById('profile-img');
+    if (S.photo_url) img.src = S.photo_url;
+
+    // CV
+    document.getElementById('cv-link').href = S.CV_PDF_URL;
+
+    // Sidebar icons
+    document.getElementById('sidebar-scholar').href  = S.scholar;
+    document.getElementById('sidebar-orcid').href    = S.orcid;
+    document.getElementById('sidebar-uni').href      = S.university_profile;
+    document.getElementById('sidebar-linkedin').href = S.linkedin;
+
+    // About info card
+    document.getElementById('info-office').innerHTML = S.office.replace(/\n/g,'<br>');
+    renderEmail('info-email-link');
+    document.getElementById('info-scholar').href     = S.scholar;
+    document.getElementById('info-orcid').href       = S.orcid;
+    document.getElementById('info-uni-profile').href = S.university_profile;
+    document.getElementById('info-linkedin').href    = S.linkedin;
+
+    // Contact panel
+    document.getElementById('contact-office').innerHTML = S.office.replace(/\n/g,'<br>');
+    renderEmail('contact-email-link');
+    document.getElementById('contact-scholar').href     = S.scholar;
+    document.getElementById('contact-orcid').href       = S.orcid;
+    document.getElementById('contact-uni-profile').href = S.university_profile;
+    document.getElementById('contact-linkedin').href    = S.linkedin;
+
+    // Interest tags
+    const tagColors = ['tag-blue','tag-green','tag-amber'];
+    const tc = document.getElementById('interest-tags');
+    S.interests.forEach((t,i) => {
+      const el = document.createElement('span');
+      el.className = 'tag ' + tagColors[i % tagColors.length];
+      el.textContent = t; tc.appendChild(el);
+    });
+
+    loadScholarStats();
+  }
+
+  /* ── Scholar live fetch ── */
+  async function loadScholarStats() {
+    const spinner  = document.getElementById('scholar-spinner');
+    const noteText = document.getElementById('scholar-note-text');
+    function renderStats(citations, hindex, i10, badgeClass, badgeText, noteMsg) {
+      document.getElementById('sc-citations').textContent = citations.toLocaleString();
+      document.getElementById('sc-hindex').textContent    = hindex;
+      document.getElementById('sc-i10').textContent       = i10;
+      document.getElementById('stat-cites').textContent   = citations >= 1000 ? (citations/1000).toFixed(1).replace(/\.0$/,'') + 'k' : citations;
+      document.getElementById('stat-hindex').textContent  = hindex;
+      document.getElementById('stat-i10').textContent     = i10;
+      ['badge-cites','badge-hindex','badge-i10'].forEach(id => {
+        const b = document.getElementById(id);
+        b.className = 'scholar-source-badge ' + badgeClass;
+        b.textContent = badgeText;
+      });
+      if (spinner) spinner.style.display = 'none';
+      if (noteText) noteText.innerHTML = noteMsg;
+    }
+    const uid = (SITE.SCHOLAR_USER_ID || '').trim();
+    if (!uid) {
+      const s = SITE.stats;
+      renderStats(s.citations, s.h_index, s.i10_index, 'badge-fallback', 'Manual', 'Set SCHOLAR_USER_ID in the config to enable live Scholar fetch.');
+      return;
+    }
+    const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://scholar.google.com/citations?user=' + uid + '&hl=en');
+    try {
+      const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) throw new Error('proxy ' + res.status);
+      const json = await res.json();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(json.contents, 'text/html');
+      const rows = doc.querySelectorAll('#gsc_rsb_st tbody tr');
+      if (!rows.length) throw new Error('parse failed');
+      const citations = parseInt(rows[0]?.querySelectorAll('td')[1]?.textContent || '0', 10);
+      const hindex    = parseInt(rows[1]?.querySelectorAll('td')[1]?.textContent || '0', 10);
+      const i10       = parseInt(rows[2]?.querySelectorAll('td')[1]?.textContent || '0', 10);
+      if (!citations && !hindex) throw new Error('zero parse');
+      const now = new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+      renderStats(citations, hindex, i10, 'badge-live', 'Live', 'Live data from <a href="' + SITE.scholar + '" target="_blank">Google Scholar</a>. Last fetched ' + now + '.');
+    } catch(err) {
+      const s = SITE.stats;
+      renderStats(s.citations, s.h_index, s.i10_index, 'badge-cached', 'Fallback', 'Could not reach Google Scholar. Showing fallback values. <a href="' + SITE.scholar + '" target="_blank">View Scholar profile &rarr;</a>');
+    }
+  }
+
+  /* ── Publications ── */
+  const typeLabel = {'Journal Article':'pt-journal','Conference Paper':'pt-conf','Book':'pt-book','Book Chapter':'pt-bookch'};
+  const typeShort  = {'Journal Article':'Journal Article','Conference Paper':'Conference Paper','Book':'Book / Edited Volume','Book Chapter':'Book Chapter'};
+
+  let _activePubType = 'all';
+  let _activePubYear = 'all';
+
+  function renderPubs(type, year) {
+    if (type === undefined) type = _activePubType;
+    if (year === undefined) year = _activePubYear;
+    _activePubType = type;
+    _activePubYear = year;
+    const list = document.getElementById('pub-list');
+    let data = (type === 'all' ? PUBLICATIONS : PUBLICATIONS.filter(p => p.type === type)).slice();
+    if (year !== 'all') data = data.filter(p => p.year === parseInt(year));
+    data.sort((a,b) => b.year - a.year);
+    list.innerHTML = data.map(p => `<div class="pub-row">
+        <span class="pub-year">${p.year}</span>
+        <div class="pub-body">
+          <div class="pub-tags"><span class="pub-tag ${typeLabel[p.type]||'pt-journal'}">${typeShort[p.type]||p.type}</span></div>
+          <div class="pub-title">${p.title}</div>
+          <div class="pub-authors">${p.authors}</div>
+          <div class="pub-journal">${p.journal}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  function buildPubYearFilters(type) {
+    const container = document.getElementById('pub-year-filters');
+    if (!container) return;
+    const src = type === 'all' ? PUBLICATIONS : PUBLICATIONS.filter(p => p.type === type);
+    const years = [...new Set(src.map(p => p.year))].sort((a,b) => b - a);
+    _activePubYear = 'all';
+    container.innerHTML = [`<button class="filter-btn active" onclick="filterPubYear('all',this)">All years</button>`,
+      ...years.map(y => `<button class="filter-btn" onclick="filterPubYear(${y},this)">${y}</button>`)
+    ].join('');
+  }
+
+  function filterPubs(type, btn) {
+    document.querySelectorAll('#pub-type-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    buildPubYearFilters(type);
+    renderPubs(type, 'all');
+  }
+
+  function filterPubYear(year, btn) {
+    document.querySelectorAll('#pub-year-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderPubs(_activePubType, year);
+  }
+
+  /* ── Grants ── */
+  function renderGrants() {
+    const list = document.getElementById('grant-list');
+    const lastActiveIdx = GRANTS.reduce((last, g, i) => g.status === 'active' ? i : last, -1);
+    list.innerHTML = GRANTS.map((g, i) => {
+      const divider = (i === lastActiveIdx + 1 && lastActiveIdx >= 0)
+        ? `<div class="grant-divider"><span>Past Funding</span></div>`
+        : '';
+      return divider + `<div class="grant-card">
+        <div class="grant-status ${g.status==='active'?'gs-active':'gs-complete'}"></div>
+        <div class="grant-body">
+          <div class="grant-agency">${g.agency}${g.mechanism?' · '+g.mechanism:''}</div>
+          <div class="grant-title">${g.title}</div>
+          <div class="grant-meta">${g.period}</div>
+        </div>
+        <div class="grant-right">
+          <div class="grant-amount">${g.amount}</div>
+          <div class="grant-role">${g.role}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ── Presentations ── */
+  const presStyle = {Keynote:'pt-keynote',Invited:'pt-invited',Oral:'pt-oral',Panel:'pt-panel'};
+  let _activePresYear = null;
+
+  function renderPresentations(year) {
+    const list = document.getElementById('pres-list');
+    const filtered = (!year || year === 'all')
+      ? PRESENTATIONS
+      : PRESENTATIONS.filter(p => String(p.date).match(/\d{4}/)?.[0] === String(year));
+    list.innerHTML = filtered.map(p => `<div class="pres-row">
+        <div class="pres-date-col"><span class="pres-date">${p.date}</span></div>
+        <div class="pres-body">
+          <span class="pres-type ${presStyle[p.type]||'pt-oral'}">${p.type}</span>
+          <div class="pres-title">${p.title}</div>
+          <div class="pres-venue">${p.venue}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  function filterPres(year, btn) {
+    _activePresYear = year;
+    document.querySelectorAll('#pres-year-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderPresentations(year);
+  }
+
+  function buildPresFilters() {
+    const container = document.getElementById('pres-year-filters');
+    const years = [...new Set(PRESENTATIONS.map(p => {
+      const m = String(p.date).match(/\d{4}/);
+      return m ? parseInt(m[0]) : null;
+    }).filter(Boolean))].sort((a,b) => b - a);
+    const mostRecent = years[0];
+    _activePresYear = mostRecent;
+    let btns = `<button class="filter-btn" onclick="filterPres('all', this)">All</button>`;
+    years.forEach(y => {
+      const active = y === mostRecent ? ' active' : '';
+      btns += `<button class="filter-btn${active}" onclick="filterPres(${y}, this)">${y}</button>`;
+    });
+    container.innerHTML = btns;
+    renderPresentations(mostRecent);
+  }
+
+  /* ── News ── */
+  let _activeNewsYear = null;
+
+  function renderNews(year) {
+    const list = document.getElementById('news-list');
+    const filtered = year === 'all' ? NEWS : NEWS.filter(n => String(n.date).match(/\d{4}/)?.[0] === String(year));
+    list.innerHTML = filtered.map(n => `<div class="news-card">
+        <div class="news-date">${n.date}</div>
+        <span class="news-cat" style="${n.cat_style}">${n.category}</span>
+        <div class="news-headline">${n.headline}</div>
+      </div>`).join('');
+  }
+
+  function filterNews(year, btn) {
+    _activeNewsYear = year;
+    document.querySelectorAll('#news-year-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderNews(year);
+  }
+
+  function buildNewsFilters() {
+    const container = document.getElementById('news-year-filters');
+    const years = [...new Set(NEWS.map(n => {
+      const m = String(n.date).match(/\d{4}/);
+      return m ? parseInt(m[0]) : null;
+    }).filter(Boolean))].sort((a,b) => b - a);
+    const mostRecent = years[0];
+    _activeNewsYear = mostRecent;
+    let btns = `<button class="filter-btn" onclick="filterNews('all', this)">All</button>`;
+    years.forEach(y => {
+      const active = y === mostRecent ? ' active' : '';
+      btns += `<button class="filter-btn${active}" onclick="filterNews(${y}, this)">${y}</button>`;
+    });
+    container.innerHTML = btns;
+    renderNews(mostRecent);
+  }
+
+  /* ── Research ── */
+  function renderResearch() {
+    const grid = document.getElementById('research-grid');
+    grid.innerHTML = RESEARCH_TOPICS.map(t => {
+      const tags = t.tags.map(tag => `<span class="research-tag">${tag}</span>`).join('');
+      return `<div class="research-card">
+        <div class="research-card-title">${t.title}</div>
+        <div class="research-card-desc">${t.description}</div>
+        <div class="research-card-tags">${tags}</div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ── Panel switcher ── */
+  const panels = ['about','research','publications','grants','presentations','news','contact'];
+  const labels  = {about:'About',research:'Research Focus',publications:'Publications',grants:'Grants & Funding',presentations:'Presentations',news:'News & Updates',contact:'Contact'};
+  function show(id) {
+    panels.forEach(p => {
+      document.getElementById('panel-'+p).classList.toggle('active', p === id);
+      document.getElementById('nav-'+p).classList.toggle('active', p === id);
+    });
+    document.getElementById('topbar-label').textContent = labels[id] || id;
+  }
+
+  /* ── Publications nav: always load with All filter ── */
+  document.getElementById('nav-publications').addEventListener('click', function() {
+    document.querySelectorAll('#pub-type-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('#pub-type-filters .filter-btn').classList.add('active');
+    buildPubYearFilters('all');
+    renderPubs('all', 'all');
+  });
+
+  document.getElementById('nav-news').addEventListener('click', function() {
+    const years = [...document.querySelectorAll('#news-year-filters .filter-btn')]
+      .map(b => b.textContent).filter(t => /^\d{4}$/.test(t)).map(Number).sort((a,b) => b - a);
+    if (years.length) {
+      const mostRecent = years[0];
+      document.querySelectorAll('#news-year-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      const btn = [...document.querySelectorAll('#news-year-filters .filter-btn')]
+        .find(b => b.textContent === String(mostRecent));
+      if (btn) btn.classList.add('active');
+      renderNews(mostRecent);
+    }
+  });
+
+  document.getElementById('nav-presentations').addEventListener('click', function() {
+    const years = [...document.querySelectorAll('#pres-year-filters .filter-btn')]
+      .map(b => b.textContent).filter(t => /^\d{4}$/.test(t)).map(Number).sort((a,b) => b - a);
+    if (years.length) {
+      const mostRecent = years[0];
+      document.querySelectorAll('#pres-year-filters .filter-btn').forEach(b => b.classList.remove('active'));
+      const btn = [...document.querySelectorAll('#pres-year-filters .filter-btn')]
+        .find(b => b.textContent === String(mostRecent));
+      if (btn) btn.classList.add('active');
+      renderPresentations(mostRecent);
+    }
+  });
+
+  /* ── Boot ── */
+  initSite();
+  renderResearch();
+  buildPubYearFilters('all');
+  renderPubs('all', 'all');
+  renderGrants();
+  buildPresFilters();
+  buildNewsFilters();
+</script>
+</body>
+</html>
