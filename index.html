@@ -38,7 +38,7 @@
     --green-lt:  #e6f5f0;
     --amber:     #b07a15;
     --amber-lt:  #fdf4e3;
-    --sidebar-w: 280px;
+    --sidebar-w: 340px;
     --transition: 0.18s ease;
     --page-bg:   #f5f4f0;
     --acc-hover-bg:     rgba(176,128,32,0.14);
@@ -51,7 +51,7 @@
     background: var(--navy); min-height: 100vh;
     position: fixed; top: 0; left: 0;
     display: flex; flex-direction: column;
-    padding: 2rem 1.5rem 1.5rem; z-index: 100;
+    padding: 2rem 1.25rem 1.5rem; z-index: 100;
   }
   #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
 
@@ -65,10 +65,10 @@
     margin-bottom: 1rem; overflow: hidden; flex-shrink: 0;
   }
   .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .sidebar-name { font-size: 16px; font-weight: 600; color: var(--text-on-navy); line-height: 1.3; margin-bottom: 8px; }
+  .sidebar-name { font-size: 18px; font-weight: 600; color: var(--text-on-navy); line-height: 1.3; margin-bottom: 10px; }
   .sidebar-role {
-    font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.52);
-    line-height: 1.6; margin-bottom: 1.75rem;
+    font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.52);
+    line-height: 1.7; margin-bottom: 1.75rem;
     display: flex; flex-wrap: wrap; align-items: center; gap: 0;
   }
   .role-piece { white-space: nowrap; }
@@ -83,8 +83,8 @@
   .nav-item {
     display: flex; align-items: center; gap: 10px;
     padding: 7px 10px; border-radius: 6px; cursor: pointer;
-    color: rgba(255,255,255,0.52); font-size: 13px; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.52); font-size: 14px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.05em;
     transition: background var(--transition), color var(--transition);
     border: none; background: none; width: 100%; text-align: left;
     font-family: 'DM Sans', sans-serif;
@@ -97,8 +97,8 @@
   /* ─── Sidebar: Stats ─────────────────────────────────────── */
   .sidebar-stats { margin-top: auto; padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0; }
   .stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-top: 0.5px solid var(--border-on-navy); }
-  .stat-label { font-size: 11px; color: var(--muted-on-navy); text-transform: uppercase; letter-spacing: 0.07em; }
-  .stat-val { font-size: 22px; font-weight: 300; color: #fff; }
+  .stat-label { font-size: 12px; color: var(--muted-on-navy); text-transform: uppercase; letter-spacing: 0.06em; }
+  .stat-val { font-size: 24px; font-weight: 300; color: #fff; }
 
   /* ─── Sidebar: CV btn ────────────────────────────────────── */
   .cv-btn {
@@ -106,8 +106,8 @@
     margin-top: 10px; padding: 9px 14px;
     background: var(--navy-soft); border: 0.5px solid rgba(255,255,255,0.18);
     border-radius: 6px; color: rgba(255,255,255,0.80);
-    font-size: 13px; font-weight: 500; text-decoration: none;
-    text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    text-transform: uppercase; letter-spacing: 0.05em;
     transition: background var(--transition), border-color var(--transition);
     font-family: 'DM Sans', sans-serif;
   }
@@ -165,7 +165,7 @@
   .section-head::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
 
   /* ─── About panel ────────────────────────────────────────── */
-  .about-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 2rem; max-width: 760px; }
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 2rem; }
   .about-headline { font-family: 'DM Serif Display', Georgia, serif; font-size: 26px; font-weight: 400; color: var(--text-pri); line-height: 1.25; margin-bottom: 1rem; }
   .about-bio { font-size: 15px; line-height: 1.8; color: #2a3040; margin-bottom: 0.9rem; }
   .interest-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
@@ -325,7 +325,7 @@
   .research-card-desc { font-size: 13.5px; color: var(--text-sec); line-height: 1.72; flex: 1; }
   .research-card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
   .research-tag { font-size: 10.5px; font-weight: 500; padding: 3px 8px; border-radius: 3px; background: var(--accent-lt); color: #7a5810; letter-spacing: 0.02em; }
-  .research-intro { font-size: 14.5px; color: var(--text-sec); line-height: 1.75; max-width: 680px; margin-bottom: 1.75rem; }
+  .research-intro { font-size: 14.5px; color: var(--text-sec); line-height: 1.75; margin-bottom: 1.75rem; }
 
   /* ─── Responsive ─────────────────────────────────────────── */
   @media (max-width: 900px) {
