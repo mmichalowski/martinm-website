@@ -176,19 +176,17 @@
   .info-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.25rem; }
   .info-card-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 0;
   }
   .info-card-grid .info-row {
-    padding: 10px 14px;
-    border-bottom: none;
-    border-right: 0.5px solid var(--border);
+    padding: 16px 20px;
+    border-bottom: 0.5px solid var(--border);
+    border-right: none;
   }
-  .info-card-grid .info-row:last-child { border-right: none; }
-  @media (max-width: 900px) {
-    .info-card-grid { grid-template-columns: repeat(2, 1fr); }
-    .info-card-grid .info-row { border-right: none; border-bottom: 0.5px solid var(--border); }
-    .info-card-grid .info-row:last-child { border-bottom: none; }
+  .info-card-grid .info-row:nth-last-child(1),
+  .info-card-grid .info-row:nth-last-child(2) {
+    border-bottom: none;
   }
   .info-row { display: flex; flex-direction: column; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
   .info-row:last-child { border-bottom: none; }
