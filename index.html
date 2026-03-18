@@ -176,15 +176,20 @@
   .info-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.25rem; }
   .info-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 0;
   }
   .info-card-grid .info-row {
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-bottom: none;
     border-right: 0.5px solid var(--border);
   }
   .info-card-grid .info-row:last-child { border-right: none; }
+  @media (max-width: 900px) {
+    .info-card-grid { grid-template-columns: repeat(2, 1fr); }
+    .info-card-grid .info-row { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .info-card-grid .info-row:last-child { border-bottom: none; }
+  }
   .info-row { display: flex; flex-direction: column; padding: 8px 0; border-bottom: 0.5px solid var(--border); }
   .info-row:last-child { border-bottom: none; }
   .info-label { font-size: 10px; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
