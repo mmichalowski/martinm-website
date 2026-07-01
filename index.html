@@ -390,7 +390,7 @@
     // ── UPDATE THESE MANUALLY ──────────────────────────────────
     // Check your Google Scholar profile and update these three numbers.
     // They display on the About page and in the sidebar stats.
-    stats: { citations: 3781, h_index: 24, i10_index: 49 },
+    stats: { citations: 3913, h_index: 24, i10_index: 49 },
     interests: [
       "Clinical Decision Support","Artificial Intelligence in Medicine",
       "Nursing Informatics","Multimorbidity Management",
@@ -435,7 +435,7 @@
 
   <a href="#" id="cv-link" class="cv-btn" target="_blank" rel="noopener">
     <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2v8M4 7l4 4 4-4M2 12v2h12v-2"/></svg>
-    Download CV
+    CV available upon request
   </a>
 
   <div class="profile-icon-row">
@@ -859,9 +859,12 @@ const RESEARCH_TOPICS = [
       cvLink.href = S.CV_PDF_URL;
     } else {
       cvLink.removeAttribute('href');
-      cvLink.style.opacity = '0.35';
-      cvLink.style.pointerEvents = 'none';
-      cvLink.title = 'CV coming soon';
+      cvLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        show('contact');
+      });
+      cvLink.style.cursor = 'pointer';
+      cvLink.title = 'CV available upon request';
     }
 
     // Sidebar icons
