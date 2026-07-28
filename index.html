@@ -1187,6 +1187,9 @@ const RESEARCH_TOPICS = [
       document.getElementById('nav-'+p).classList.toggle('active', p === id);
     });
     document.getElementById('topbar-label').textContent = labels[id] || id;
+    const contentEl = document.getElementById('content');
+    if (contentEl) contentEl.scrollTop = 0;
+    window.scrollTo(0, 0);
   }
 
   /* ── Publications nav: always load with All filter ── */
