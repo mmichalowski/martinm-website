@@ -235,6 +235,38 @@
   .scholar-fetch-note { font-size: 11px; color: var(--text-ter); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 6px; }
   .scholar-fetch-note a { color: var(--accent); text-decoration: none; }
 
+  /* ─── Recent News panel (About page) ─────────────────────── */
+  .recent-news-panel {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-top: 2rem; margin-bottom: 2rem; max-width: 700px;
+  }
+  .recent-news-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 18px; border-bottom: 0.5px solid var(--border); background: var(--accent-lt);
+  }
+  .recent-news-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #7a5810;
+  }
+  .recent-news-link {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    text-decoration: none; background: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .recent-news-row {
+    display: flex; gap: 14px; align-items: center; padding: 13px 18px;
+    border-bottom: 0.5px solid var(--border); text-align: left;
+  }
+  .recent-news-row:last-child { border-bottom: none; }
+  .recent-news-badge {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 6px; border-radius: 4px; flex-shrink: 0; white-space: nowrap;
+    width: 96px; box-sizing: border-box; text-align: center;
+  }
+  .recent-news-body { flex: 1; text-align: left; }
+  .recent-news-date { font-size: 10.5px; color: var(--text-ter); margin-bottom: 3px; text-align: left; }
+  .recent-news-text { font-size: 13px; color: var(--text-pri); line-height: 1.4; text-align: left; }
+
   /* ─── Publications panel ─────────────────────────────────── */
   .pub-filters { display: flex; gap: 10px; margin-bottom: 0.6rem; flex-wrap: wrap; }
   .pub-year-filters-row .filter-btn {
@@ -507,6 +539,14 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="recent-news-panel">
+        <div class="recent-news-head">
+          <span class="recent-news-title">Recent News</span>
+          <button class="recent-news-link" onclick="show('news')">View all &rarr;</button>
+        </div>
+        <div id="recent-news-list"></div>
       </div>
 
       <div class="section-head">Citation metrics</div>
@@ -1072,6 +1112,32 @@ const RESEARCH_TOPICS = [
     renderNews(year);
   }
 
+  function renderRecentNews(count) {
+    const container = document.getElementById('recent-news-list');
+    if (!container) return;
+    const MONTHS = {january:1,february:2,march:3,april:4,may:5,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+    function sortKey(dateStr) {
+      const parts = String(dateStr).split(' ');
+      if (parts.length === 2) return parseInt(parts[1])*100 + (MONTHS[parts[0].toLowerCase()]||0);
+      return parseInt(parts[0])*100;
+    }
+    const sorted = NEWS.slice().sort((a,b) => sortKey(b.date) - sortKey(a.date));
+    const recent = sorted.slice(0, count || 3);
+    container.innerHTML = recent.map(n => {
+      const colMatch = n.cat_style.match(/color:([^;}'"]+)/);
+      const bgMatch = n.cat_style.match(/background:([^;}'"]+)/);
+      const badgeColor = colMatch ? colMatch[1].trim() : 'var(--accent)';
+      const badgeBg = bgMatch ? bgMatch[1].trim() : 'var(--accent-lt)';
+      return `<div class="recent-news-row">
+        <span class="recent-news-badge" style="background:${badgeBg};color:${badgeColor}">${n.category}</span>
+        <div class="recent-news-body">
+          <div class="recent-news-date">${n.date}</div>
+          <div class="recent-news-text">${n.headline}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
   function buildNewsFilters() {
     const container = document.getElementById('news-year-filters');
     const years = [...new Set(NEWS.map(n => {
@@ -1155,6 +1221,7 @@ const RESEARCH_TOPICS = [
   renderGrants();
   buildPresFilters();
   buildNewsFilters();
+  renderRecentNews(3);
 </script>
 </body>
 </html>
