@@ -267,6 +267,17 @@
     padding: 4px 6px; border-radius: 4px; flex-shrink: 0; white-space: nowrap;
     width: 96px; box-sizing: border-box; text-align: center;
   }
+  .recent-news-badge-col {
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    flex-shrink: 0; width: 96px;
+  }
+  .recent-news-doi-pill {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
+    padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+    background: #eef1f5; color: #4a5a72; text-decoration: none;
+    width: 100%; box-sizing: border-box; text-align: center;
+  }
+  .recent-news-doi-pill:hover { background: #e2e7ee; }
   .recent-news-body { flex: 1; text-align: left; }
   .recent-news-date { font-size: 10.5px; color: var(--text-ter); margin-bottom: 3px; text-align: left; }
   .recent-news-text { font-size: 13px; color: var(--text-pri); line-height: 1.4; text-align: left; }
@@ -302,11 +313,11 @@
   .pub-authors { font-size: 12.5px; color: var(--text-sec); margin-bottom: 3px; line-height: 1.4; }
   .pub-journal { font-size: 12.5px; color: var(--accent); font-style: italic; }
   .doi-link {
-    font-size: 11px; color: var(--accent); text-decoration: none;
-    margin-left: 6px; font-style: normal; font-weight: 500;
+    font-size: 11px; color: #4a5a72; text-decoration: none;
+    margin-left: 6px; font-style: normal; font-weight: 600;
     white-space: nowrap;
   }
-  .doi-link:hover { text-decoration: underline; }
+  .doi-link:hover { text-decoration: underline; color: #33404f; }
   .pub-tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
   .pub-tag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.05em; text-transform: uppercase; }
   .pt-journal { background: #e2f4f0; color: #0e6b50; }
@@ -875,14 +886,14 @@ const PRESENTATIONS = [
   {date:"Nov 2018",title:"Relationships Among Interventions and Health Literacy Outcomes for Sub-Populations: A Data-Driven Approach",venue:"International Omaha System Partnership Scientific Team Meeting, Minneapolis, MN",type:"Invited"}];
 
 const NEWS =[
-  {date:"September 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Co-authored “Code With Care: A Strategic Blueprint for Nurse-Led AI in Healthcare,” published in the Journal of Advanced Nursing."},
-  {date:"July 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Launched the NAIL Digest: AI-Driven Nursing Informatics, announced in “Implementation, Governance, and Trustworthy AI in Nursing: A Report from AINurse-26,” published in Computers, Informatics, Nursing."},
+  {date:"September 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Co-authored “Code With Care: A Strategic Blueprint for Nurse-Led AI in Healthcare,” published in the Journal of Advanced Nursing.",doi:"10.1111/jan.70755"},
+  {date:"July 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Launched the NAIL Digest: AI-Driven Nursing Informatics, announced in “Implementation, Governance, and Trustworthy AI in Nursing: A Report from AINurse-26,” published in Computers, Informatics, Nursing.",doi:"10.1097/CIN.0000000000001620"},
   {date:"July 2026",category:"Panelist",cat_style:"background:#fce8f5;color:#a01a72",headline:"Invited panelist for “The Pivotal Role of Computing Research for the Future of Healthcare” at the 2026 Computing Research Association (CRA) Summit, Prior Lake, MN."},
   {date:"July 2026",category:"Organization",cat_style:"background:#e0e8f8;color:#1a3a8a",headline:"Co-chairing <a href=\"https://ainurse26.nailcollab.org/\" target=\"_blank\" style=\"color:inherit;text-decoration:underline;\">AINurse-26</a>, the Fifth International Workshop on AI in Nursing, co-located with AIME 2026 in Ottawa, Canada (July 10, 2026)."},
-  {date:"July 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Paper accepted at AIME 2026: “SemAS — Semantic Alignment Score for XAI Applications in Clinical Decision Support,” with Bergomi L., Wilk S., Carrier M., Le Gal G., Wang T.-F., Michalowski W."},
+  {date:"July 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Paper accepted at AIME 2026: “SemAS — Semantic Alignment Score for XAI Applications in Clinical Decision Support,” with Bergomi L., Wilk S., Carrier M., Le Gal G., Wang T.-F., Michalowski W.",doi:"10.1007/978-3-032-30710-1_3"},
   {date:"June 2026",category:"Keynote",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Keynote, “Your AI Colleague, Not Your Replacement: Multimodal AI and the Future of Nursing Documentation,” 14th International Scientific Conference on Research and Education in Nursing, University of Maribor Faculty of Health Sciences."},
   {date:"June 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Paper accepted at the AMIA Annual Symposium: “Evaluating Wearable Camera Systems for Multimodal AI in Home Healthcare: A Feasibility Study,” with Zhang Z., Song M., Gupta P., Topaz M., et al."},
-  {date:"May 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Manuscript accepted in Nursing Outlook: “Artificial Intelligence Can Replace Nursing Tasks, but Not Nurses: Examining Artificial Intelligence’s Supports and Threats to Nursing Practice Through the Lens of the 2025 Nursing Code of Ethics.”"},
+  {date:"May 2026",category:"Publication",cat_style:"background:#e0f4f8;color:#0e7490",headline:"Manuscript accepted in Nursing Outlook: “Artificial Intelligence Can Replace Nursing Tasks, but Not Nurses: Examining Artificial Intelligence’s Supports and Threats to Nursing Practice Through the Lens of the 2025 Nursing Code of Ethics.”",doi:"10.1016/j.outlook.2026.102808"},
   {date:"March 2026",category:"Invited Talk",cat_style:"background:#f0e8fd;color:#5a2fa8",headline:"Invited keynote at the University of Maribor Doctoral Symposium on AI-Powered Guideline Navigation for chronic illness management."},
   {date:"January 2026",category:"Keynote",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Delivered keynote on eliminating documentation burden through Multimodal AI at Columbia University, New York."},
   {date:"October 2025",category:"Keynote",cat_style:"background:#fdf4e3;color:#9a6010",headline:"Keynote speaker at the 28th Information Society Multiconference (SIZN) on AI for Nursing Science, Ljubljana, Slovenia."},
@@ -1139,10 +1150,11 @@ const RESEARCH_TOPICS = [
     list.innerHTML = filtered.map(n => {
       const colMatch = n.cat_style.match(/color:([^;}'"]+)/);
       const borderCol = colMatch ? colMatch[1].trim() : 'var(--accent)';
+      const doiLink = n.doi ? ` <a href="https://doi.org/${n.doi}" target="_blank" class="doi-link">DOI &rarr;</a>` : '';
       return `<div class="news-card" style="border-left-color:${borderCol}">
         <div class="news-date">${n.date}</div>
         <span class="news-cat" style="${n.cat_style}">${n.category}</span>
-        <div class="news-headline">${n.headline}</div>
+        <div class="news-headline">${n.headline}${doiLink}</div>
       </div>`;
     }).join('');
   }
@@ -1170,8 +1182,12 @@ const RESEARCH_TOPICS = [
       const bgMatch = n.cat_style.match(/background:([^;}'"]+)/);
       const badgeColor = colMatch ? colMatch[1].trim() : 'var(--accent)';
       const badgeBg = bgMatch ? bgMatch[1].trim() : 'var(--accent-lt)';
+      const doiPill = n.doi ? `<a href="https://doi.org/${n.doi}" target="_blank" class="recent-news-doi-pill">DOI</a>` : '';
       return `<div class="recent-news-row">
-        <span class="recent-news-badge" style="background:${badgeBg};color:${badgeColor}">${n.category}</span>
+        <div class="recent-news-badge-col">
+          <span class="recent-news-badge" style="background:${badgeBg};color:${badgeColor}">${n.category}</span>
+          ${doiPill}
+        </div>
         <div class="recent-news-body">
           <div class="recent-news-date">${n.date}</div>
           <div class="recent-news-text">${n.headline}</div>
