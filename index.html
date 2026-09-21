@@ -26,7 +26,8 @@
   <meta name="twitter:title"       content="Martin Michalowski, PhD, FAMIA, FIAHSI" />
   <meta name="twitter:description" content="Associate Professor with Tenure &amp; Foundation Research Professor, School of Nursing, University of Minnesota." />
   <meta name="twitter:image"       content="https://martinmichalowski.com/headshot.jpg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="alternate" type="application/rss+xml" title="Martin Michalowski — News &amp; Updates" href="https://martinmichalowski.com/feed.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -359,6 +360,22 @@
     white-space: nowrap;
   }
 
+  .patent-list { display: flex; flex-direction: column; gap: 10px; }
+  .patent-card {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.25rem; display: flex; gap: 1.25rem; align-items: flex-start;
+  }
+  .patent-icon {
+    width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0;
+    background: var(--accent);
+  }
+  .patent-body { flex: 1; }
+  .patent-title { font-size: 14px; color: var(--text-pri); line-height: 1.4; margin-bottom: 6px; }
+  .patent-meta { font-size: 12px; color: var(--text-sec); }
+  .patent-right { text-align: right; flex-shrink: 0; }
+  .patent-number { font-size: 13px; font-weight: 500; color: var(--accent); font-family: 'DM Sans', sans-serif; }
+  .patent-date { font-size: 11px; color: var(--text-ter); margin-top: 2px; }
+
   /* ─── Presentations panel ────────────────────────────────── */
   .pres-list { display: flex; flex-direction: column; gap: 0; }
   .pres-row { display: flex; gap: 1.5rem; padding: 1rem 0; border-bottom: 0.5px solid var(--border); align-items: flex-start; }
@@ -422,6 +439,52 @@
     .about-grid, .contact-grid, .grants-summary, .scholar-stats-grid { grid-template-columns: 1fr; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Martin Michalowski",
+  "honorificSuffix": "PhD, FAMIA, FIAHSI",
+  "url": "https://martinmichalowski.com",
+  "image": "https://martinmichalowski.com/headshot.jpg",
+  "jobTitle": ["Associate Professor with Tenure", "Foundation Research Professor"],
+  "worksFor": {
+    "@type": "CollegeOrUniversity",
+    "name": "University of Minnesota, School of Nursing",
+    "url": "https://nursing.umn.edu/"
+  },
+  "affiliation": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Minnesota, School of Nursing",
+      "url": "https://nursing.umn.edu/"
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Maribor, Faculty of Health Sciences",
+      "url": "https://www.um.si/en/"
+    }
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "University of Southern California"
+  },
+  "sameAs": [
+    "https://scholar.google.com/citations?user=qMNZlnEAAAAJ&hl=en",
+    "https://orcid.org/0000-0003-2060-5878",
+    "https://www.linkedin.com/in/martin-michalowski/",
+    "https://aimedicine.info/"
+  ],
+  "knowsAbout": [
+    "Artificial Intelligence in Medicine",
+    "Clinical Decision Support",
+    "Nursing Informatics",
+    "Explainable AI",
+    "Natural Language Processing",
+    "Multimorbidity Management"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -540,7 +603,7 @@
       <div class="about-grid">
         <div>
           <h1 class="about-headline" id="about-headline"></h1>
-          <p class="about-bio">I am an Associate Professor with Tenure and Foundation Research Professor in the School of Nursing, Population Health and Systems Cooperative at the University of Minnesota. I also serve as Co-Director of the <a href="https://nursing.umn.edu/centers/center-nursing-informatics/center-nursing-informatics-overview" target="_blank" style="color:var(--accent);text-decoration:none;">Center for Nursing Informatics</a>, Co-Leader of the <a href="https://cair.umn.edu/" target="_blank" style="color:var(--accent);text-decoration:none;">Cognitive Artificial Intelligence Research Lab (CAIR)</a>, Co-Director of the <a href="https://www.nailcollab.org/" target="_blank" style="color:var(--accent);text-decoration:none;">Nursing and Artificial Intelligence Leadership Collaborative (NAIL)</a>, Co-Leader of the <a href="https://mobiledss.cs.put.poznan.pl/" target="_blank" style="color:var(--accent);text-decoration:none;">Mobile Emergency Triage (MET) Research Group</a>, and am Co-President of the <a href="https://aimedicine.info/" target="_blank" style="color:var(--accent);text-decoration:none;">AIME Society</a>.</p>
+          <p class="about-bio">I am an Associate Professor with Tenure and Foundation Research Professor in the School of Nursing, Population Health and Systems Cooperative at the University of Minnesota, and a Senior Research Associate at the Faculty of Health Sciences, University of Maribor. I also serve as Co-Director of the <a href="https://nursing.umn.edu/centers/center-nursing-informatics/center-nursing-informatics-overview" target="_blank" style="color:var(--accent);text-decoration:none;">Center for Nursing Informatics</a>, Co-Leader of the <a href="https://cair.umn.edu/" target="_blank" style="color:var(--accent);text-decoration:none;">Cognitive Artificial Intelligence Research Lab (CAIR)</a>, Co-Director of the <a href="https://www.nailcollab.org/" target="_blank" style="color:var(--accent);text-decoration:none;">Nursing and Artificial Intelligence Leadership Collaborative (NAIL)</a>, Co-Leader of the <a href="https://mobiledss.cs.put.poznan.pl/" target="_blank" style="color:var(--accent);text-decoration:none;">Mobile Emergency Triage (MET) Research Group</a>, and am Co-President of the <a href="https://aimedicine.info/" target="_blank" style="color:var(--accent);text-decoration:none;">AIME Society</a>.</p>
           <p class="about-bio">My research focuses on the development and application of artificial intelligence methods to support clinical decision-making, particularly for patients living with multiple chronic conditions (multimorbidity). My work spans computable clinical practice guidelines, explainable AI for clinical decision support, natural language processing for health data, and the ethical and social implications of AI in nursing and healthcare. I collaborate with researchers across medicine, computer science, and nursing informatics internationally. My research has received funding from the NSF, NIH, DARPA, DoD, and private foundations, and has resulted in two patents and several startup companies.</p>
           <p class="about-bio">I earned my Ph.D. in Computer Science from the University of Southern California, where I developed solutions to automated reasoning problems using AI. I am a Fellow of the American Medical Informatics Association (FAMIA) and a Fellow of the International Academy of Health Sciences Informatics (FIAHSI), and a Senior Member of the Association for the Advancement of Artificial Intelligence (AAAI). I serve as co-chair of the International Workshop on Health Intelligence (W3PHIAI) and the Workshop on AI in Nursing (AINurse).</p>
           <div class="interest-tags" id="interest-tags"></div>
@@ -618,6 +681,9 @@
       </div>
       <div class="section-head">Grants &amp; Funding</div>
       <div class="grant-list" id="grant-list"></div>
+
+      <div class="section-head" style="margin-top:2rem;">Patents</div>
+      <div class="patent-list" id="patent-list"></div>
     </section>
 
     <!-- ═══ PRESENTATIONS ═══ -->
@@ -845,6 +911,11 @@ const GRANTS = [
   {agency:"DARPA",mechanism:"Seedlings",title:"Using Go as a Platform for Knowledge Guided Exploration",amount:"$90,000",period:"2009–2011",role:"Co-Investigator",status:"complete"},
   {agency:"DARPA / AFRL",mechanism:"SBIR Phase 1 & 2",title:"Cyber Craft System Scaling (C2S2)",amount:"$740,000",period:"2008–2010",role:"Co-Investigator",status:"complete"},
   {agency:"AFOSR",mechanism:"Research",title:"InfoFuse: Interleaved Information Gathering and Reasoning for Information Fusion",amount:"$740,000",period:"2007–2008",role:"Co-Investigator",status:"complete"},
+];
+
+const PATENTS = [
+  {title:"Interactive Educational Tool",inventors:"Michalowski M., Carpenter T.P., Nelson K.S.",number:"US 10,002,540",date:"Issued 2018"},
+  {title:"Interactive Educational Tool",inventors:"Michalowski M., Carpenter T.P., Nelson K.S.",number:"US 9,111,458",date:"Issued August 18, 2015"}
 ];
 
 const PRESENTATIONS = [
@@ -1097,6 +1168,22 @@ const RESEARCH_TOPICS = [
       </div>`;
     }).join('');
   }
+  function renderPatents() {
+    const list = document.getElementById('patent-list');
+    if (!list) return;
+    list.innerHTML = PATENTS.map(p => `<div class="patent-card">
+        <div class="patent-icon"></div>
+        <div class="patent-body">
+          <div class="patent-title">${p.title}</div>
+          <div class="patent-meta">${p.inventors}</div>
+        </div>
+        <div class="patent-right">
+          <div class="patent-number">${p.number}</div>
+          <div class="patent-date">${p.date}</div>
+        </div>
+      </div>`).join('');
+  }
+
 
   /* ── Presentations ── */
   const presStyle = {Keynote:'pt-keynote',Invited:'pt-invited',Oral:'pt-oral',Panel:'pt-panel'};
@@ -1280,6 +1367,7 @@ const RESEARCH_TOPICS = [
   buildPubYearFilters('all');
   renderPubs('all', 'all');
   renderGrants();
+  renderPatents();
   buildPresFilters();
   buildNewsFilters();
   renderRecentNews(3);
