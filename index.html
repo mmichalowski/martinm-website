@@ -392,6 +392,15 @@
   .pt-panel    { background: var(--amber-lt); color: var(--amber); }
 
   /* ─── News panel ─────────────────────────────────────────── */
+  .rss-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
+    flex-shrink: 0; white-space: nowrap;
+  }
+  .rss-link svg { width: 13px; height: 13px; }
+  .rss-link:hover { text-decoration: underline; }
+
   .news-list { display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
   .news-card {
     background: var(--surface); border: 0.5px solid var(--border);
@@ -696,7 +705,13 @@
     <!-- ═══ NEWS ═══ -->
     <section class="panel" id="panel-news">
       <div class="pub-filters" id="news-year-filters" style="margin-bottom:1.25rem;"></div>
-      <div class="section-head">News &amp; Updates</div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:1.25rem;">
+        <div class="section-head" style="flex:1; margin-bottom:0;">News &amp; Updates</div>
+        <a href="feed.xml" target="_blank" class="rss-link" title="Subscribe via RSS">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4a12 12 0 0112 12M4 4a12 12 0 0112 12"/><path d="M4 11a5 5 0 015 5"/><circle cx="5" cy="15" r="1.4" fill="currentColor" stroke="none"/></svg>
+          RSS
+        </a>
+      </div>
       <div class="news-list" id="news-list"></div>
     </section>
 
